@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Etat {
+  sourcing
+  valid
+  refused
+  tenu_commite
+}
+
+model Admin {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  nom      String
+  prenom   String
+  cin      String @unique
+  tel      String
+  email    String @unique
+  password String
+  PDP      PDP[]  @relation("AdminToPDP")
+}
+
+model Associe {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  nom      String
+  prenom   String
+  cin      String @unique
+  tel      String
+  email    String @unique
+  password String
+  PDP      PDP[]  @relation("AssocieToPDP")
+}
+
+model Approbataire {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  nom      String
+  prenom   String
+  cin      String @unique
+  tel      String
+  email    String @unique
+  password String
+  PDP      PDP[]  @relation("ApprobataireToPDP")
+}
+
+model PDP {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+
+  irchad_id           Int
+  nom                 String
+  prenom              String
+  date_naissance      DateTime
+  num_cin             String   @unique
+  tel                 String
+  email               String
+  type_form_juridique String
+  date_form_juridique DateTime
+  commune             String
+  province            String
+
+  doc_cin                       String?
+  doc_cv                        String?
+  doc_forme_juridique           String?
+  doc_contrat_de_bail           String?
+  doc_devis                     String?
+  doc_attestation_rib           String?
+  doc_diplome                   String?
+  doc_attestation_stage_travail String?
+
+  AdminId Int?
+  Admin   Admin? @relation("AdminToPDP", fields: [AdminId], references: [id])
+
+  AssocieId Int?
+  Associe   Associe? @relation("AssocieToPDP", fields: [AssocieId], references: [id])
+
+  ApprobataireId Int?
+  Approbataire   Approbataire? @relation("ApprobataireToPDP", fields: [ApprobataireId], references: [id])
+
+  Projet     Projet[]
+  Experience Experience[]
+}
+
+model Projet {
+  id          Int     @id @default(autoincrement())
+  nom         String
+  secteur     String
+  etat        Etat    @default(sourcing)
+  commentaire String?
+  belongsToId Int
+  belongsTo   PDP     @relation(fields: [belongsToId], references: [id])
+}
+
+model Experience {
+  id          Int    @id @default(autoincrement())
+  nom         String
+  duree       String
+  belongsToId Int
+  belongsTo   PDP    @relation(fields: [belongsToId], references: [id])
+}

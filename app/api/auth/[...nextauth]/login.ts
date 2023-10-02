@@ -1,0 +1,48 @@
+import { prisma } from "@/utils/db";
+import bcrypt from "bcryptjs";
+
+export const login = async (email: string, password: string, role: string) => {
+  let user;
+
+  if (role == "admin") {
+    user = await prisma.admin.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role == "approbataire") {
+    user = await prisma.approbataire.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+  if (role == "associe") {
+    user = await prisma.associe.findUnique({
+      where: {
+        email,
+      },
+    });
+  }
+
+  if (!user) {
+    return null;
+  }
+
+  //   const isValidPassword = await bcrypt.compare(password, user.password);
+
+  //   if (!isValidPassword) {
+  //     return null;
+  //   }
+
+  if (password != user.password) {
+    return null;
+  }
+
+  return {
+    email: user.email,
+    name: `${user.nom} ${user.prenom}`,
+    role,
+  };
+};
