@@ -1,0 +1,112 @@
+-- CreateEnum
+CREATE TYPE "Etat" AS ENUM ('sourcing', 'valid', 'refused', 'tenu_commite');
+
+-- CreateTable
+CREATE TABLE "Admin" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "nom" TEXT NOT NULL,
+    "prenom" TEXT NOT NULL,
+    "cin" TEXT NOT NULL,
+    "tel" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "Admin_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Associe" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "nom" TEXT NOT NULL,
+    "prenom" TEXT NOT NULL,
+    "cin" TEXT NOT NULL,
+    "tel" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "Associe_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Approbateur" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "nom" TEXT NOT NULL,
+    "prenom" TEXT NOT NULL,
+    "cin" TEXT NOT NULL,
+    "tel" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
+
+    CONSTRAINT "Approbateur_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Pdp" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "irchad_id" INTEGER,
+    "nom" TEXT NOT NULL,
+    "prenom" TEXT NOT NULL,
+    "date_naissance" TIMESTAMP(3) NOT NULL,
+    "num_cin" TEXT NOT NULL,
+    "tel" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "type_form_juridique" TEXT NOT NULL,
+    "date_form_juridique" TIMESTAMP(3) NOT NULL,
+    "region" TEXT NOT NULL,
+    "commune" TEXT NOT NULL,
+    "province" TEXT NOT NULL,
+    "nom_projet" TEXT NOT NULL,
+    "secteur_projet" TEXT NOT NULL,
+    "experience_1" TEXT,
+    "experience_2" TEXT,
+    "experience_3" TEXT,
+    "experience_4" TEXT,
+    "experience_5" TEXT,
+    "etat" "Etat" NOT NULL DEFAULT 'sourcing',
+    "commentaire" TEXT,
+    "doc_cin" TEXT,
+    "doc_cv" TEXT,
+    "doc_forme_juridique" TEXT,
+    "doc_contrat_de_bail" TEXT,
+    "doc_devis" TEXT,
+    "doc_attestation_rib" TEXT,
+    "doc_diplome" TEXT,
+    "doc_attestation_stage_travail" TEXT,
+    "AdminId" INTEGER,
+    "AssocieId" INTEGER,
+    "ApprobateurId" INTEGER,
+
+    CONSTRAINT "Pdp_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Admin_cin_key" ON "Admin"("cin");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Associe_cin_key" ON "Associe"("cin");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Associe_email_key" ON "Associe"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Approbateur_cin_key" ON "Approbateur"("cin");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Approbateur_email_key" ON "Approbateur"("email");
+
+-- AddForeignKey
+ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_AdminId_fkey" FOREIGN KEY ("AdminId") REFERENCES "Admin"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_AssocieId_fkey" FOREIGN KEY ("AssocieId") REFERENCES "Associe"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_ApprobateurId_fkey" FOREIGN KEY ("ApprobateurId") REFERENCES "Approbateur"("id") ON DELETE SET NULL ON UPDATE CASCADE;

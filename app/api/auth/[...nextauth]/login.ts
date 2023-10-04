@@ -1,33 +1,36 @@
-import { prisma } from "@/utils/db";
-import bcrypt from "bcryptjs";
+import { prisma } from '@/utils/db'
+import bcrypt from 'bcryptjs'
 
 export const login = async (email: string, password: string, role: string) => {
-  let user;
+  let user
+  console.log({ email, password, role })
 
-  if (role == "admin") {
+  if (role == 'admin') {
     user = await prisma.admin.findUniqueOrThrow({
       where: {
         email,
       },
-    });
+    })
   }
-  if (role == "approbataire") {
-    user = await prisma.approbataire.findUnique({
+  if (role == 'approbateur') {
+    console.log('approbateur')
+    user = await prisma.approbateur.findUnique({
       where: {
         email,
       },
-    });
+    })
+    console.log(user)
   }
-  if (role == "associe") {
+  if (role == 'associe') {
     user = await prisma.associe.findUnique({
       where: {
         email,
       },
-    });
+    })
   }
 
   if (!user) {
-    return null;
+    return null
   }
 
   //   const isValidPassword = await bcrypt.compare(password, user.password);
@@ -37,12 +40,12 @@ export const login = async (email: string, password: string, role: string) => {
   //   }
 
   if (password != user.password) {
-    return null;
+    return null
   }
 
   return {
     email: user.email,
     name: `${user.nom} ${user.prenom}`,
     role,
-  };
-};
+  }
+}

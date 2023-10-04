@@ -24,7 +24,7 @@ model Admin {
   tel      String
   email    String @unique
   password String
-  PDP      PDP[]  @relation("AdminToPDP")
+  PDP      Pdp[]  @relation("AdminToPDP")
 }
 
 model Associe {
@@ -37,10 +37,10 @@ model Associe {
   tel      String
   email    String @unique
   password String
-  PDP      PDP[]  @relation("AssocieToPDP")
+  PDP      Pdp[]  @relation("AssocieToPDP")
 }
 
-model Approbataire {
+model Approbateur {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
@@ -50,24 +50,38 @@ model Approbataire {
   tel      String
   email    String @unique
   password String
-  PDP      PDP[]  @relation("ApprobataireToPDP")
+  PDP      Pdp[]  @relation("ApprobateurToPDP")
 }
 
-model PDP {
+model Pdp {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  irchad_id           Int
+  irchad_id           Int?
   nom                 String
   prenom              String
   date_naissance      DateTime
-  num_cin             String   @unique
+  num_cin             String
   tel                 String
   email               String
   type_form_juridique String
   date_form_juridique DateTime
+  region              String
   commune             String
   province            String
+
+  nom_projet     String
+  secteur_projet String
+
+  experience_1 String?
+  experience_2 String?
+  experience_3 String?
+  experience_4 String?
+  experience_5 String?
+
+  etat        Etat    @default(sourcing)
+  commentaire String?
 
   doc_cin                       String?
   doc_cv                        String?
@@ -84,27 +98,6 @@ model PDP {
   AssocieId Int?
   Associe   Associe? @relation("AssocieToPDP", fields: [AssocieId], references: [id])
 
-  ApprobataireId Int?
-  Approbataire   Approbataire? @relation("ApprobataireToPDP", fields: [ApprobataireId], references: [id])
-
-  Projet     Projet[]
-  Experience Experience[]
-}
-
-model Projet {
-  id          Int     @id @default(autoincrement())
-  nom         String
-  secteur     String
-  etat        Etat    @default(sourcing)
-  commentaire String?
-  belongsToId Int
-  belongsTo   PDP     @relation(fields: [belongsToId], references: [id])
-}
-
-model Experience {
-  id          Int    @id @default(autoincrement())
-  nom         String
-  duree       String
-  belongsToId Int
-  belongsTo   PDP    @relation(fields: [belongsToId], references: [id])
+  ApprobateurId Int?
+  Approbateur   Approbateur? @relation("ApprobateurToPDP", fields: [ApprobateurId], references: [id])
 }
