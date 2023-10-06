@@ -37,14 +37,15 @@ const UpdatePdpForm = ({ pdp }: any) => {
           Créer à: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}
         </p>
         <p>
-          Dernière modification: {pdpState.createdAt.toLocaleString('fr-FR')}
+          Dernière modification:{' '}
+          {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}
         </p>
       </div>
 
       <hr className="mx-auto mt-6 h-1 w-48 rounded border-0 bg-gray-100 md:my-10" />
 
       <form action={action} onSubmit={handleSubmit}>
-        <div className="grid grid-cols-3 gap-x-4">
+        <div className="grid grid-cols-3 gap-6">
           <div className="flex flex-col">
             <label className="font-semibold">Irchad Réf candidature</label>
             <input
@@ -80,7 +81,20 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
+            <label>Sexe</label>
+            <select
+              name="sexe"
+              className="mt-2 border p-2"
+              onChange={handleChange}
+              value={pdpState.sexe}
+              required
+            >
+              <option value="homme">Homme</option>
+              <option value="femme">Femme</option>
+            </select>
+          </div>
+          <div className="flex flex-col">
             <label className="font-semibold">Date de naissance</label>
             <input
               className="mt-2 border p-2"
@@ -91,7 +105,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">CIN</label>
             <input
               className="mt-2 border p-2"
@@ -103,7 +117,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Telephone</label>
             <input
               className="mt-2 border p-2"
@@ -115,7 +129,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Email</label>
             <input
               className="mt-2 border p-2"
@@ -127,7 +141,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Type de form juridique</label>
             <input
               className="mt-2 border p-2"
@@ -139,7 +153,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Date de form juridique</label>
             <input
               className="mt-2 border p-2"
@@ -150,7 +164,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Region</label>
             <input
               className="mt-2 border p-2"
@@ -162,7 +176,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Commune</label>
             <input
               className="mt-2 border p-2"
@@ -174,7 +188,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Province</label>
             <input
               className="mt-2 border p-2"
@@ -186,7 +200,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               required
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Experience 1</label>
             <input
               className="mt-2 border p-2"
@@ -197,7 +211,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
               name="experience_1"
             />
           </div>
-          <div className="mt-6 flex flex-col">
+          <div className="flex flex-col">
             <label className="font-semibold">Experience 2</label>
             <input
               className="mt-2 border p-2"
@@ -212,7 +226,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
 
         <hr className="mx-auto mt-6 h-1 w-48 rounded border-0 bg-gray-100 md:my-10" />
 
-        <div className="grid grid-cols-2 gap-x-4">
+        <div className="grid grid-cols-2 gap-6">
           <div className="flex flex-col">
             <label className="font-semibold">Intitulé projet</label>
             <input

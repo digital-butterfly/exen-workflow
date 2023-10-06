@@ -60,7 +60,7 @@ const PdpPage = async () => {
                 <td className="px-6 py-4">{e.nom_projet}</td>
                 <td className="px-6 py-4">
                   <Link
-                    href={`/admin/pdp/${e.id}`}
+                    href={`/admin/pdp/update/${e.id}`}
                     className="rounded-lg bg-sky-200 p-2"
                   >
                     Voir Info

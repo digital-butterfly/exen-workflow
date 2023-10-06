@@ -61,6 +61,7 @@ model Pdp {
   irchad_id           Int?
   nom                 String
   prenom              String
+  sexe                String
   date_naissance      DateTime
   num_cin             String
   tel                 String
@@ -91,6 +92,8 @@ model Pdp {
   doc_attestation_rib           String?
   doc_diplome                   String?
   doc_attestation_stage_travail String?
+  doc_bp                        String?
+  doc_fiche_de_presence         String?
 
   AdminId Int?
   Admin   Admin? @relation("AdminToPDP", fields: [AdminId], references: [id])
