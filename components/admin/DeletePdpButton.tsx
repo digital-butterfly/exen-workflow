@@ -5,7 +5,7 @@ import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2'
 
-const DeletePdpButton = ({ pdpId }: any) => {
+const DeletePdpButton = ({ pdp }: any) => {
   const action = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     Swal.fire({
@@ -18,7 +18,8 @@ const DeletePdpButton = ({ pdpId }: any) => {
       confirmButtonText: 'Yes, delete it!',
     }).then(async result => {
       if (result.isConfirmed) {
-        await deletePdpAction(pdpId)
+        await deletePdpAction(pdp.id, pdp)
+
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
       }
     })
@@ -26,7 +27,7 @@ const DeletePdpButton = ({ pdpId }: any) => {
 
   return (
     <form onSubmit={action}>
-      <input type="hidden" name="id" value={pdpId} />
+      <input type="hidden" name="id" value={pdp.id} />
       <button
         type="submit"
         className="rounded-lg bg-red-500 px-4 py-2 text-white transition-all hover:bg-red-400"

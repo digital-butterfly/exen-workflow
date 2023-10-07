@@ -2,10 +2,6 @@
 
 ## TODO
 
-1. add edit uploaded files
-
-1. add delete files when pdp is deleted
-
 1. add associes crud
 
 1. add approbateurs crud
@@ -34,3 +30,7 @@
 1. add upload files and change pdp state
 
 1. make the validate pdp button disappear when the pdp is valid
+
+1. add edit uploaded files
+
+1. add delete files when pdp is deleted

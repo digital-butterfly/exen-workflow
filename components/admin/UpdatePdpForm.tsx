@@ -2,9 +2,16 @@
 
 import { updatePdpAction } from '@/app/_actions'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 const UpdatePdpForm = ({ pdp }: any) => {
-  const [pdpState, setPdpState] = useState({ ...pdp })
+  const [pdpState, setPdpState] = useState({
+    ...pdp,
+    date_naissance: new Date(pdp.date_naissance).toLocaleDateString('fr-FR'),
+    date_form_juridique: new Date(pdp.date_form_juridique).toLocaleDateString(
+      'fr-FR',
+    ),
+  })
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -20,6 +27,12 @@ const UpdatePdpForm = ({ pdp }: any) => {
     }
     // reset the form
     setPdpState({ ...pdpState })
+    Swal.fire({
+      icon: 'success',
+      title: 'Pdp modifié',
+      showConfirmButton: false,
+      timer: 1500,
+    })
   }
 
   const handleSubmit = (e: any) => {
@@ -34,7 +47,11 @@ const UpdatePdpForm = ({ pdp }: any) => {
     <div>
       <div className="mt-5">
         <p>
-          Créer à: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}
+          Créer à: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}{' '}
+          par{' '}
+          <span className="font-semibold">
+            {pdpState?.Admin?.nom} {pdpState?.Admin?.prenom}
+          </span>
         </p>
         <p>
           Dernière modification:{' '}
@@ -98,9 +115,9 @@ const UpdatePdpForm = ({ pdp }: any) => {
             <label className="font-semibold">Date de naissance</label>
             <input
               className="mt-2 border p-2"
-              type="date"
+              type="text"
               onChange={handleChange}
-              value={pdpState.date_naissance.toISOString().substr(0, 10)}
+              value={pdpState.date_naissance}
               name="date_naissance"
               required
             />
@@ -157,9 +174,9 @@ const UpdatePdpForm = ({ pdp }: any) => {
             <label className="font-semibold">Date de form juridique</label>
             <input
               className="mt-2 border p-2"
-              type="date"
+              type="text"
               onChange={handleChange}
-              value={pdpState.date_form_juridique.toISOString().substr(0, 10)}
+              value={pdpState.date_form_juridique}
               name="date_form_juridique"
               required
             />

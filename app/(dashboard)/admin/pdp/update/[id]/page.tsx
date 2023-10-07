@@ -42,7 +42,7 @@ const PdpPageId = async ({ params }: any) => {
               </Link>
             )}
             {/* Delete pdp button */}
-            <DeletePdpButton pdpId={pdp?.id} />
+            <DeletePdpButton pdp={pdp} />
           </div>
         </div>
 

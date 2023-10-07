@@ -3,7 +3,7 @@
 import { createPdpAction } from '@/app/_actions'
 import { useState } from 'react'
 
-const NewPdpForm = () => {
+const NewPdpForm = ({ id }: any) => {
   const [formData, setFormData] = useState({
     irchad_id: '',
     nom: '',
@@ -35,7 +35,7 @@ const NewPdpForm = () => {
   async function action(data: FormData) {
     // call a server action to create a todo
     try {
-      await createPdpAction(formData)
+      await createPdpAction(id, formData, 'admin')
     } catch (error) {
       console.log(error)
     }

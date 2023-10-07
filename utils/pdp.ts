@@ -16,6 +16,11 @@ export async function getPdpById(id: any) {
   try {
     const pdp = await prisma.pdp.findUnique({
       where: { id: parseInt(id) },
+      include: {
+        Admin: true,
+        Associe: true,
+        Approbateur: true,
+      },
     })
     return { pdp }
   } catch (error) {
@@ -24,7 +29,14 @@ export async function getPdpById(id: any) {
   }
 }
 
-export async function createPdp(pdp: any) {
+export async function createPdp(id: any, pdp: any, role: any) {
+  // if role is admin create {AdminId: id} else {Associe: id}
+  if (role === 'admin') {
+    pdp.AdminId = parseInt(id)
+  } else {
+    pdp.AssocieId = parseInt(id)
+  }
+
   // turn pdp irchad_id into number
   pdp.irchad_id = parseInt(pdp.irchad_id)
 
@@ -32,13 +44,16 @@ export async function createPdp(pdp: any) {
   pdp.date_naissance = new Date(pdp.date_naissance)
   pdp.date_form_juridique = new Date(pdp.date_form_juridique)
 
+  console.log(pdp)
+
   try {
     const newPdp = await prisma.pdp.create({
       data: {
         ...pdp,
       },
     })
-    // add created by
+
+    console.log(newPdp)
     return { newPdp }
   } catch (error) {
     console.log(error)
