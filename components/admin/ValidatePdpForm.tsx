@@ -4,6 +4,7 @@ import { writeFile } from 'fs/promises'
 import { join } from 'path'
 
 const ValidatePdpForm = async ({ pdp }: any) => {
+  // console.log(pdp)
   const inputs = [
     { label: 'CIN', name: 'doc_cin' },
     { label: 'Cv', name: 'doc_cv' },
@@ -23,131 +24,54 @@ const ValidatePdpForm = async ({ pdp }: any) => {
   async function action(data: FormData) {
     'use server'
 
-    const cin: File | null = data.get('doc_cin') as File
-    const cv: File | null = data.get('doc_cv') as File
-    const forme_juridique: File | null = data.get('doc_forme_juridique') as File
-    const contrat_de_bail: File | null = data.get('doc_contrat_de_bail') as File
-    const devis: File | null = data.get('doc_devis') as File
-    const attestation_rib: File | null = data.get('doc_attestation_rib') as File
-    const diplome: File | null = data.get('doc_diplome') as File
-    const attestation_stage_travail: File | null = data.get(
-      'doc_attestation_stage_travail',
-    ) as File
-    const bp: File | null = data.get('doc_bp') as File
-    const fiche_de_presence: File | null = data.get(
-      'doc_fiche_de_presence',
-    ) as File
+    const actionPdp = { id: pdp.id, nom: pdp.nom }
 
-    const filesBytes = {
-      cin: await cin.arrayBuffer(),
-      cv: await cv.arrayBuffer(),
-      forme_juridique: await forme_juridique.arrayBuffer(),
-      contrat_de_bail: await contrat_de_bail.arrayBuffer(),
-      devis: await devis.arrayBuffer(),
-      attestation_rib: await attestation_rib.arrayBuffer(),
-      diplome: await diplome.arrayBuffer(),
-      attestation_stage_travail: await attestation_stage_travail.arrayBuffer(),
-      bp: await bp.arrayBuffer(),
-      fiche_de_presence: await fiche_de_presence.arrayBuffer(),
-    }
+    // Define an array of objects that represent the files to be uploaded
+    const files = [
+      { name: 'doc_cin', path: 'cin' },
+      { name: 'doc_cv', path: 'cv' },
+      { name: 'doc_forme_juridique', path: 'forme_juridique' },
+      { name: 'doc_contrat_de_bail', path: 'contrat_de_bail' },
+      { name: 'doc_devis', path: 'devis' },
+      { name: 'doc_attestation_rib', path: 'attestation_rib' },
+      { name: 'doc_diplome', path: 'diplome' },
+      {
+        name: 'doc_attestation_stage_travail',
+        path: 'attestation_stage_travail',
+      },
+      { name: 'doc_bp', path: 'bp' },
+      { name: 'doc_fiche_de_presence', path: 'fiche_de_presence' },
+    ]
 
-    const filesBuffers = {
-      cin: Buffer.from(filesBytes.cin),
-      cv: Buffer.from(filesBytes.cv),
-      forme_juridique: Buffer.from(filesBytes.forme_juridique),
-      contrat_de_bail: Buffer.from(filesBytes.contrat_de_bail),
-      devis: Buffer.from(filesBytes.devis),
-      attestation_rib: Buffer.from(filesBytes.attestation_rib),
-      diplome: Buffer.from(filesBytes.diplome),
-      attestation_stage_travail: Buffer.from(
-        filesBytes.attestation_stage_travail,
-      ),
-      bp: Buffer.from(filesBytes.bp),
-      fiche_de_presence: Buffer.from(filesBytes.fiche_de_presence),
-    }
-
-    const filesNames = {
-      cin: `${Date.now()}-${pdp.nom}-${cin.name}`,
-      cv: `${Date.now()}-${pdp.nom}-${cv.name}`,
-      forme_juridique: `${Date.now()}-${pdp.nom}-${forme_juridique.name}`,
-      contrat_de_bail: `${Date.now()}-${pdp.nom}-${contrat_de_bail.name}`,
-      devis: `${Date.now()}-${pdp.nom}-${devis.name}`,
-      attestation_rib: `${Date.now()}-${pdp.nom}-${attestation_rib.name}`,
-      diplome: `${Date.now()}-${pdp.nom}-${diplome.name}`,
-      attestation_stage_travail: `${Date.now()}-${pdp.nom}-${
-        attestation_stage_travail.name
-      }`,
-      bp: `${Date.now()}-${pdp.nom}-${bp.name}`,
-      fiche_de_presence: `${Date.now()}-${pdp.nom}-${fiche_de_presence.name}`,
-    }
-
-    const filesPaths = {
-      cin: join(process.cwd(), 'public', 'uploads', filesNames.cin),
-      cv: join(process.cwd(), 'public', 'uploads', filesNames.cv),
-      forme_juridique: join(
-        process.cwd(),
-        'public',
-        'uploads',
-        filesNames.forme_juridique,
-      ),
-      contrat_de_bail: join(
-        process.cwd(),
-        'public',
-        'uploads',
-        filesNames.contrat_de_bail,
-      ),
-      devis: join(process.cwd(), 'public', 'uploads', filesNames.devis),
-      attestation_rib: join(
-        process.cwd(),
-        'public',
-        'uploads',
-        filesNames.attestation_rib,
-      ),
-      diplome: join(process.cwd(), 'public', 'uploads', filesNames.diplome),
-      attestation_stage_travail: join(
-        process.cwd(),
-        'public',
-        'uploads',
-        filesNames.attestation_stage_travail,
-      ),
-      bp: join(process.cwd(), 'public', 'uploads', filesNames.bp),
-      fiche_de_presence: join(
-        process.cwd(),
-        'public',
-        'uploads',
-        filesNames.fiche_de_presence,
-      ),
-    }
-
-    await writeFile(filesPaths.cin, filesBuffers.cin)
-    await writeFile(filesPaths.cv, filesBuffers.cv)
-    await writeFile(filesPaths.forme_juridique, filesBuffers.forme_juridique)
-    await writeFile(filesPaths.contrat_de_bail, filesBuffers.contrat_de_bail)
-    await writeFile(filesPaths.devis, filesBuffers.devis)
-    await writeFile(filesPaths.attestation_rib, filesBuffers.attestation_rib)
-    await writeFile(filesPaths.diplome, filesBuffers.diplome)
-    await writeFile(
-      filesPaths.attestation_stage_travail,
-      filesBuffers.attestation_stage_travail,
-    )
-    await writeFile(filesPaths.bp, filesBuffers.bp)
-    await writeFile(
-      filesPaths.fiche_de_presence,
-      filesBuffers.fiche_de_presence,
+    // Use Promise.all to execute all the arrayBuffer calls in parallel
+    // and create an array of objects that contain the file name, buffer, and path
+    const filesData = await Promise.all(
+      files.map(async file => {
+        const fileData = data.get(file.name) as File | null
+        if (!fileData) return null
+        const buffer = await fileData.arrayBuffer()
+        const name = `${Date.now()}-${pdp.nom}-${fileData.name}`
+          .replace(/[^a-zA-Z0-9.]/g, '-')
+          .replace(/-{2,}/g, '-')
+        const path = join(process.cwd(), 'public', 'uploads', name)
+        return { name, buffer, path }
+      }),
     )
 
-    await addFiles(pdp.id, {
-      doc_cin: filesNames.cin,
-      doc_cv: filesNames.cv,
-      doc_forme_juridique: filesNames.forme_juridique,
-      doc_contrat_de_bail: filesNames.contrat_de_bail,
-      doc_devis: filesNames.devis,
-      doc_attestation_rib: filesNames.attestation_rib,
-      doc_diplome: filesNames.diplome,
-      doc_attestation_stage_travail: filesNames.attestation_stage_travail,
-      doc_bp: filesNames.bp,
-      doc_fiche_de_presence: filesNames.fiche_de_presence,
-    })
+    // Use a for...of loop to iterate over the filesData array and write each file to disk
+    for (const fileData of filesData) {
+      if (!fileData) continue
+      await writeFile(fileData.path, Buffer.from(fileData.buffer))
+    }
+
+    // Create an object that maps the file path to the file name
+    const filesNames = Object.fromEntries(
+      filesData.map((fileData, i) => [files[i].name, fileData?.name]),
+    )
+
+    // Call the addFiles function to add the file names to the pdp object
+    console.log(filesNames)
+    await addFiles(actionPdp.id, filesNames)
   }
 
   return (

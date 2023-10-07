@@ -6,6 +6,8 @@
 
 ## TODO
 
+- make the validate pdp button disappear when the pdp is valid
+
 - add edit uploaded files
 
 - add associes crud

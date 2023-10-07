@@ -91,6 +91,8 @@ export async function addFiles(id: any, files: any) {
         doc_fiche_de_presence: files.doc_fiche_de_presence,
       },
     })
+    console.log(pdp)
+    return { pdp }
   } catch (error) {
     console.log(error)
     return { error }
