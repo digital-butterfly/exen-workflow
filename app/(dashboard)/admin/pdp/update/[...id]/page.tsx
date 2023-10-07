@@ -1,4 +1,5 @@
 import DeletePdpButton from '@/components/admin/DeletePdpButton'
+import ShowFiles from '@/components/admin/ShowFiles'
 import UpdatePdpForm from '@/components/admin/UpdatePdpForm'
 import { getPdpById } from '@/utils/pdp'
 import {
@@ -51,6 +52,11 @@ const PdpPageId = async ({ params }: any) => {
         <div>
           <UpdatePdpForm pdp={pdp} />
         </div>
+        {pdp?.etat != 'sourcing' && (
+          <div className="mt-6">
+            <ShowFiles id={pdp?.id} pdp={pdp} />
+          </div>
+        )}
       </main>
     </div>
   )

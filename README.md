@@ -6,8 +6,6 @@
 
 ## TODO
 
-- add upload files and change pdp state
-
 - add edit uploaded files
 
 - add associes crud
@@ -27,6 +25,8 @@
 
 - fix the auth error message (maybe throw an error and catch it in client)
 
+- prevent users from using dev tools
+
 ## Done
 
 - remigrate the database (added sex, some docs)
@@ -34,3 +34,5 @@
 - added sexe to create pdp
 
 - added sexe to update pdp
+
+- add upload files and change pdp state

@@ -72,3 +72,27 @@ export async function deletePdp(id: any) {
     return { error }
   }
 }
+
+export async function addFiles(id: any, files: any) {
+  try {
+    const pdp = await prisma.pdp.update({
+      where: { id: parseInt(id) },
+      data: {
+        etat: 'valid',
+        doc_cin: files.doc_cin,
+        doc_cv: files.doc_cv,
+        doc_forme_juridique: files.doc_forme_juridique,
+        doc_contrat_de_bail: files.doc_contrat_de_bail,
+        doc_devis: files.doc_devis,
+        doc_attestation_rib: files.doc_attestation_rib,
+        doc_diplome: files.doc_diplome,
+        doc_attestation_stage_travail: files.doc_attestation_stage_travail,
+        doc_bp: files.doc_bp,
+        doc_fiche_de_presence: files.doc_fiche_de_presence,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    return { error }
+  }
+}
