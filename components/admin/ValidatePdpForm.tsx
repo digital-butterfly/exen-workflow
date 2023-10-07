@@ -1,7 +1,9 @@
 import { inputFileClass } from '@/utils/classes'
 import { addFiles } from '@/utils/pdp'
 import { writeFile } from 'fs/promises'
+import { redirect } from 'next/navigation'
 import { join } from 'path'
+import Swal from 'sweetalert2'
 
 const ValidatePdpForm = async ({ pdp }: any) => {
   // console.log(pdp)
@@ -70,8 +72,16 @@ const ValidatePdpForm = async ({ pdp }: any) => {
     )
 
     // Call the addFiles function to add the file names to the pdp object
-    console.log(filesNames)
     await addFiles(actionPdp.id, filesNames)
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Pdp validé',
+      text: `Le pdp de ${actionPdp.nom} a été validé avec succès`,
+    })
+
+    // Redirect to /admin/pdp/update/[id]
+    redirect(`/admin/pdp/update/${actionPdp.id}`)
   }
 
   return (
@@ -92,7 +102,10 @@ const ValidatePdpForm = async ({ pdp }: any) => {
             </div>
           ))}
         </div>
-        <button className="mt-6 bg-blue-500 p-4" type="submit">
+        <button
+          className="mt-6 rounded-lg bg-blue-500 p-4 text-white hover:bg-blue-600"
+          type="submit"
+        >
           Valider
         </button>
       </form>

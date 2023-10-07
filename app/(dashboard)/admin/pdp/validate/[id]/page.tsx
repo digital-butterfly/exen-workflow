@@ -1,4 +1,5 @@
 import ValidatePdpForm from '@/components/admin/ValidatePdpForm'
+import { ReturnButtonClass } from '@/utils/classes'
 import { getPdpById } from '@/utils/pdp'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -11,10 +12,7 @@ const ValidatePage = async ({ params }: any) => {
   return (
     <div>
       {/* Go back button */}
-      <Link
-        className="rounded-lg border p-4 text-gray-400 transition-all hover:bg-gray-100"
-        href={'/admin/pdp'}
-      >
+      <Link className={ReturnButtonClass} href={'/admin/pdp'}>
         <FontAwesomeIcon
           icon={faArrowLeft}
           className="mr-2"

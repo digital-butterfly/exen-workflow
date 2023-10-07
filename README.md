@@ -1,40 +1,36 @@
 # Accompagnement PDP App
 
-## TODO REQUIRED
-
-- continue working on validate pdp (add write files functionality to /public)
-
 ## TODO
 
-- make the validate pdp button disappear when the pdp is valid
+1. add edit uploaded files
 
-- add edit uploaded files
+1. add delete files when pdp is deleted
 
-- add associes crud
+1. add associes crud
 
-- add approbateurs crud
+1. add approbateurs crud
 
-- add created by to pdp
+1. add created by to pdp
 
-- add filters to show all pdp
+1. add filters to show all pdp
 
-- add 'à moi' to filters to show the pdp created by the user or make the associe
-  see his pdp only
+   - add 'à moi' to filters to show the pdp created by the user or make the
+     associe see his pdp only
 
-- add role based auth
+1. add role based auth
 
-- restyle the app
+1. restyle the app
 
-- fix the auth error message (maybe throw an error and catch it in client)
+1. fix the auth error message (maybe throw an error and catch it in client)
 
-- prevent users from using dev tools
+1. prevent users from using dev tools
 
 ## Done
 
-- remigrate the database (added sex, some docs)
+1. remigrate the database (added sex, some docs)
 
-- added sexe to create pdp
+1. added sexe to create pdp
 
-- added sexe to update pdp
+1. add upload files and change pdp state
 
-- add upload files and change pdp state
+1. make the validate pdp button disappear when the pdp is valid
