@@ -18,6 +18,7 @@ import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { join } from 'path'
 import bcryptjs from 'bcryptjs'
+import { createAssocie, deleteAssocie, updateAssocie } from '@/utils/associe'
 
 // pdp
 export async function createPdpAction(id: any, pdp: any, role: any) {
@@ -181,4 +182,26 @@ export async function validatePdpAction(id: any) {
 export async function refusePdpAction(id: any, message: any) {
   await refusePdp(id, message)
   revalidatePath(`/approbateur/pdp/${id}`)
+}
+
+// associe
+export async function createAssocieAction(associe: any) {
+  // encrypt password
+  associe.password = await bcryptjs.hash(associe.password, 10)
+  const test = await createAssocie(associe)
+
+  revalidatePath('/admin/associes')
+}
+
+export async function deleteAssocieAction(id: any) {
+  // delete Associe
+  deleteAssocie(id)
+  // redirect to /admin/Associes
+  redirect('/admin/associes')
+}
+
+export async function updateAssocieAction(id: any, associe: any) {
+  await updateAssocie(id, associe)
+
+  revalidatePath(`/admin/associes/${id}`)
 }

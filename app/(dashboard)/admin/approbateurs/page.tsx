@@ -1,3 +1,4 @@
+import AddButton from '@/components/AddButton'
 import { getApprobateurs } from '@/utils/approbateur'
 import Link from 'next/link'
 
@@ -8,12 +9,8 @@ const ApprobateursPage = async () => {
     <div>
       <div className="mt-10 flex justify-between">
         <h1 className="text-3xl">List des approbateurs</h1>
-        <Link
-          className="mt-6 rounded-lg bg-blue-300 p-2"
-          href={'approbateurs/create'}
-        >
-          Ajouter Approbateur
-        </Link>
+
+        <AddButton path={'approbateurs/create'} />
       </div>
 
       <div className="relative mt-10 overflow-x-auto">
