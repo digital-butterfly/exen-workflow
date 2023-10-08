@@ -18,7 +18,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
     setPdpState({ ...pdpState, [name]: value })
   }
 
-  async function action(data) {
+  async function action(data: FormData) {
     // call a server action to create a todo
     try {
       await updatePdpAction(pdpState.id, pdpState)

@@ -1,11 +1,18 @@
 'use server'
 
+import {
+  createApprobateur,
+  getApprobateurs,
+  updateApprobateur,
+} from '@/utils/approbateur'
 import { createPdp, deletePdp, updatePdp } from '@/utils/pdp'
 import { unlink } from 'fs'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { join } from 'path'
+import bcryptjs from 'bcryptjs'
 
+// pdp
 export async function createPdpAction(id: any, pdp: any, role: any) {
   await createPdp(id, pdp, role)
   // add here revalidatePath('/path') if needed
@@ -134,4 +141,20 @@ export async function deletePdpAction(id: any, pdp: any) {
 
   // redirect to /admin/pdp
   redirect('/admin/pdp')
+}
+
+// approbateur
+
+export async function createApprobateurAction(approbateur: any) {
+  // encrypt password
+  approbateur.password = await bcryptjs.hash(approbateur.password, 10)
+  const test = await createApprobateur(approbateur)
+
+  revalidatePath('/admin/approbateurs')
+}
+
+export async function updateApprobateurAction(id: any, approbateur: any) {
+  await updateApprobateur(id, approbateur)
+
+  revalidatePath(`/admin/approbateurs/${id}`)
 }

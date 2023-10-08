@@ -2,9 +2,11 @@
 
 ## TODO
 
-1. add associes crud
-
 1. add approbateurs crud
+
+   - try to return only the pdp without approbateur in the second function
+
+1. add associes crud
 
 1. add created by to pdp
 
