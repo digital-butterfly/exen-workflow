@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 const links = [
   { name: 'PDP', href: '/admin/pdp', icon: faUser },
   { name: 'Associes', href: '/admin/associes', icon: faUserTie },
-  { name: 'Approbataires', href: '/admin/approbataires', icon: faUserNurse },
+  { name: 'Approbateurs', href: '/admin/approbateurs', icon: faUserNurse },
 ]
 
 type Session = {

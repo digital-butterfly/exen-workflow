@@ -33,13 +33,9 @@ export const login = async (email: string, password: string, role: string) => {
     return null
   }
 
-  //   const isValidPassword = await bcrypt.compare(password, user.password);
+  const isValidPassword = await bcrypt.compare(password, user.password)
 
-  //   if (!isValidPassword) {
-  //     return null;
-  //   }
-
-  if (password != user.password) {
+  if (!isValidPassword) {
     return null
   }
 
