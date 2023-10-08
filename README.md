@@ -4,6 +4,8 @@
 
 1. add associes crud
 
+1. show refuse message in pdp
+
 1. add filters to show all pdp
 
    - add 'à moi' to filters to show the pdp created by the user or make the

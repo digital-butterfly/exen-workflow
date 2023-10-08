@@ -9,34 +9,34 @@ import withReactContent from 'sweetalert2-react-content'
 
 const ShowFiles = ({ id, pdp }: any) => {
   const files = [
-    { name: 'CIN', path: pdp.doc_cin, key: 'doc_cin' },
-    { name: 'CV', path: pdp.doc_cv, key: 'doc_cv' },
+    { name: 'CIN', path: pdp?.doc_cin, key: 'doc_cin' },
+    { name: 'CV', path: pdp?.doc_cv, key: 'doc_cv' },
     {
       name: 'Form Juridique',
-      path: pdp.doc_forme_juridique,
+      path: pdp?.doc_forme_juridique,
       key: 'doc_forme_juridique',
     },
     {
       name: 'Contrat de bail',
-      path: pdp.doc_contrat_de_bail,
+      path: pdp?.doc_contrat_de_bail,
       key: 'doc_contrat_de_bail',
     },
-    { name: 'Devis', path: pdp.doc_devis, key: 'doc_devis' },
+    { name: 'Devis', path: pdp?.doc_devis, key: 'doc_devis' },
     {
       name: 'Attestation de RIB',
-      path: pdp.doc_attestation_rib,
+      path: pdp?.doc_attestation_rib,
       key: 'doc_attestation_rib',
     },
-    { name: 'Diplôme', path: pdp.doc_diplome, key: 'doc_diplome' },
+    { name: 'Diplôme', path: pdp?.doc_diplome, key: 'doc_diplome' },
     {
       name: 'Attestation Stage/Travail',
-      path: pdp.doc_attestation_stage_travail,
+      path: pdp?.doc_attestation_stage_travail,
       key: 'doc_attestation_stage_travail',
     },
-    { name: 'Business Plan', path: pdp.doc_bp, key: 'doc_bp' },
+    { name: 'Business Plan', path: pdp?.doc_bp, key: 'doc_bp' },
     {
       name: 'Fiche de présence',
-      path: pdp.doc_fiche_de_presence,
+      path: pdp?.doc_fiche_de_presence,
       key: 'doc_fiche_de_presence',
     },
   ]
