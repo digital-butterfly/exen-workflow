@@ -4,7 +4,6 @@ import Link from 'next/link'
 const ApprobateursPage = async () => {
   const { approbateurs } = await getApprobateurs()
 
-  console.log(approbateurs)
   return (
     <div>
       <div className="mt-10 flex justify-between">

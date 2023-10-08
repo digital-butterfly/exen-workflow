@@ -2,6 +2,7 @@
 
 import {
   createApprobateur,
+  deleteApprobateur,
   getApprobateurs,
   updateApprobateur,
 } from '@/utils/approbateur'
@@ -157,4 +158,11 @@ export async function updateApprobateurAction(id: any, approbateur: any) {
   await updateApprobateur(id, approbateur)
 
   revalidatePath(`/admin/approbateurs/${id}`)
+}
+
+export async function deleteApprobateurAction(id: any) {
+  // delete approbateur
+  deleteApprobateur(id)
+  // redirect to /admin/approbateurs
+  redirect('/admin/approbateurs')
 }

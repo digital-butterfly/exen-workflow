@@ -5,7 +5,6 @@ export async function getApprobateurs() {
     const approbateurs = await prisma.approbateur.findMany({
       orderBy: [{ id: 'asc' }],
     })
-    console.log(approbateurs)
     return { approbateurs }
   } catch (error) {
     console.log(error)
@@ -23,15 +22,16 @@ export async function getApprobateurById(id: any) {
   }
 }
 
-export async function getApprobateurByIdWithPdp(id: any) {
+export async function getApprobateurPdps(id: any) {
   try {
-    const approbateur = await prisma.approbateur.findUnique({
+    const pdps = await prisma.approbateur.findUnique({
       where: { id: Number(id) },
-      include: {
+      select: {
         PDP: true,
       },
     })
-    return { approbateur }
+    console.log(pdps)
+    return { pdps }
   } catch (error) {
     console.log(error)
   }
@@ -53,6 +53,17 @@ export async function updateApprobateur(id: any, data: any) {
     const approbateur = await prisma.approbateur.update({
       where: { id: Number(id) },
       data,
+    })
+    return { approbateur }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function deleteApprobateur(id: any) {
+  try {
+    const approbateur = await prisma.approbateur.delete({
+      where: { id: Number(id) },
     })
     return { approbateur }
   } catch (error) {

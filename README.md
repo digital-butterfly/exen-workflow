@@ -2,13 +2,7 @@
 
 ## TODO
 
-1. add approbateurs crud
-
-   - try to return only the pdp without approbateur in the second function
-
 1. add associes crud
-
-1. add created by to pdp
 
 1. add filters to show all pdp
 
@@ -36,3 +30,9 @@
 1. add edit uploaded files
 
 1. add delete files when pdp is deleted
+
+1. add created by to pdp
+
+1. add approbateurs crud
+
+   - try to return only the pdp without approbateur in the second function
