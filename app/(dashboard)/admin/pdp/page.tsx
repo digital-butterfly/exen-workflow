@@ -1,3 +1,4 @@
+import AddButton from '@/components/AddButton'
 import { getPdp } from '@/utils/pdp'
 import Link from 'next/link'
 
@@ -6,14 +7,10 @@ const PdpPage = async () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="mt-10 flex items-center justify-between">
         <h1 className="text-3xl">List des porteurs de projets</h1>
-        <Link
-          className="mt-6 rounded-lg bg-blue-300 p-2"
-          href={'/admin/pdp/create'}
-        >
-          Créer un pdp
-        </Link>
+
+        <AddButton path={'pdp/create'} />
       </div>
 
       <div className="relative mt-10 overflow-x-auto">

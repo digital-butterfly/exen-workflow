@@ -1,15 +1,15 @@
 'use client'
 
-import { deleteApprobateurAction } from '@/app/_actions'
+import { deleteAssocieAction } from '@/app/_actions'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2'
 
-const DeleteApprobateurButton = ({ id }: any) => {
+const DeleteAssocieButton = ({ id }: any) => {
   const action = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     Swal.fire({
-      title: 'Are you Vous êtes sure?',
+      title: 'Vous êtes sure?',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#3085d6',
@@ -17,7 +17,7 @@ const DeleteApprobateurButton = ({ id }: any) => {
       confirmButtonText: 'Yes, delete it!',
     }).then(async result => {
       if (result.isConfirmed) {
-        await deleteApprobateurAction(id)
+        await deleteAssocieAction(id)
 
         Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
       }
@@ -41,4 +41,4 @@ const DeleteApprobateurButton = ({ id }: any) => {
   )
 }
 
-export default DeleteApprobateurButton
+export default DeleteAssocieButton

@@ -1,10 +1,10 @@
 'use client'
 
-import { createApprobateurAction } from '@/app/_actions'
+import { createAssocieAction } from '@/app/_actions'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-const NewApprobateurForm = () => {
+const NewAssocieForm = () => {
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -21,7 +21,7 @@ const NewApprobateurForm = () => {
 
   const action = async (data: FormData) => {
     try {
-      await createApprobateurAction(formData)
+      await createAssocieAction(formData)
     } catch (error) {
       console.log(error)
     }
@@ -29,7 +29,7 @@ const NewApprobateurForm = () => {
     Swal.fire({
       icon: 'success',
       title: 'Succès',
-      text: 'Approbateur créé avec succès',
+      text: 'Associe créé avec succès',
     })
 
     setFormData({
@@ -53,7 +53,7 @@ const NewApprobateurForm = () => {
             name="nom"
             onChange={handleChange}
             value={formData.nom}
-            placeholder="Nom d'approbateur"
+            placeholder="Nom d'Associe"
             required
           />
         </div>
@@ -66,7 +66,7 @@ const NewApprobateurForm = () => {
             name="prenom"
             onChange={handleChange}
             value={formData.prenom}
-            placeholder="Prenom d'approbateur"
+            placeholder="Prenom d'Associe"
             required
           />
         </div>
@@ -79,7 +79,7 @@ const NewApprobateurForm = () => {
             name="cin"
             onChange={handleChange}
             value={formData.cin}
-            placeholder="CIN d'approbateur"
+            placeholder="CIN d'Associe"
             required
           />
         </div>
@@ -92,7 +92,7 @@ const NewApprobateurForm = () => {
             name="tel"
             onChange={handleChange}
             value={formData.tel}
-            placeholder="Telephone d'approbateur"
+            placeholder="Telephone d'Associe"
             required
           />
         </div>
@@ -105,7 +105,7 @@ const NewApprobateurForm = () => {
             name="email"
             onChange={handleChange}
             value={formData.email}
-            placeholder="E-mail d'approbateur"
+            placeholder="E-mail d'Associe"
             required
           />
         </div>
@@ -118,7 +118,7 @@ const NewApprobateurForm = () => {
             name="password"
             onChange={handleChange}
             value={formData.password}
-            placeholder="Mot de passe d'approbateur"
+            placeholder="Mot de passe d'Associe"
             required
           />
         </div>
@@ -134,4 +134,4 @@ const NewApprobateurForm = () => {
   )
 }
 
-export default NewApprobateurForm
+export default NewAssocieForm

@@ -2,9 +2,15 @@
 
 ## TODO
 
-1. add associes crud
+1. show stats in admin page
+
+1. add change password to admin, associe, approbateur
 
 1. show refuse message in pdp
+
+1. add loading
+
+1. add approved or refused by approbateur to pdp
 
 1. add filters to show all pdp
 
@@ -38,3 +44,5 @@
 1. add approbateurs crud
 
    - try to return only the pdp without approbateur in the second function
+
+1. add associes crud
