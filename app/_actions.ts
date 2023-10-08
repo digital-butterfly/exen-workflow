@@ -6,7 +6,13 @@ import {
   getApprobateurs,
   updateApprobateur,
 } from '@/utils/approbateur'
-import { createPdp, deletePdp, updatePdp } from '@/utils/pdp'
+import {
+  createPdp,
+  deletePdp,
+  refusePdp,
+  updatePdp,
+  validatePdp,
+} from '@/utils/pdp'
 import { unlink } from 'fs'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
@@ -165,4 +171,14 @@ export async function deleteApprobateurAction(id: any) {
   deleteApprobateur(id)
   // redirect to /admin/approbateurs
   redirect('/admin/approbateurs')
+}
+
+export async function validatePdpAction(id: any) {
+  await validatePdp(id)
+  revalidatePath(`/approbateur/pdp/${id}`)
+}
+
+export async function refusePdpAction(id: any, message: any) {
+  await refusePdp(id, message)
+  revalidatePath(`/approbateur/pdp/${id}`)
 }

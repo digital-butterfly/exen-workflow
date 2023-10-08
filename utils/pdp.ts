@@ -129,3 +129,48 @@ export async function updateFile(id: any, data: any) {
     return { error }
   }
 }
+
+// approbateur
+export async function getValidPdp() {
+  try {
+    const pdp = await prisma.pdp.findMany({
+      where: { etat: 'valid' },
+      orderBy: [{ id: 'asc' }],
+    })
+    return { pdp }
+  } catch (error) {
+    console.log(error)
+    return { error: 'An error occurred while fetching PDPs.' }
+  }
+}
+
+export async function validatePdp(id: any) {
+  try {
+    const validatedPdp = await prisma.pdp.update({
+      where: { id: parseInt(id) },
+      data: {
+        etat: 'tenu_commite',
+      },
+    })
+    return { validatedPdp }
+  } catch (error) {
+    console.log(error)
+    return { error }
+  }
+}
+
+export async function refusePdp(id: any, commentaire: any) {
+  try {
+    const refusedPdp = await prisma.pdp.update({
+      where: { id: parseInt(id) },
+      data: {
+        etat: 'refused',
+        commentaire,
+      },
+    })
+    return { refusedPdp }
+  } catch (error) {
+    console.log(error)
+    return { error }
+  }
+}

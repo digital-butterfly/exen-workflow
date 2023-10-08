@@ -2,6 +2,7 @@
 
 import { createPdpAction } from '@/app/_actions'
 import { useState } from 'react'
+import Swal from 'sweetalert2'
 
 const NewPdpForm = ({ id }: any) => {
   const [formData, setFormData] = useState({
@@ -39,6 +40,13 @@ const NewPdpForm = ({ id }: any) => {
     } catch (error) {
       console.log(error)
     }
+
+    Swal.fire({
+      title: 'Success!',
+      text: 'Le porteur de projet a été crée avec succès',
+      icon: 'success',
+      confirmButtonText: 'OK',
+    })
     // reset the form
     setFormData({
       irchad_id: '',
