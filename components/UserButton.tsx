@@ -40,7 +40,7 @@ const UserButton = ({ token }: any) => {
       {isDropdownOpen && (
         <div className="absolute right-8 top-16 flex w-64 flex-col rounded-2xl  border border-gray-200 bg-white">
           <ul className="flex flex-col gap-1">
-            <Link href={path}>
+            <Link href={`${path}/settings`}>
               <li className="rounded-t-2xl p-4 hover:bg-slate-100">
                 Paramètre
               </li>

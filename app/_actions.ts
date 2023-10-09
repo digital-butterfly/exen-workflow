@@ -19,6 +19,7 @@ import { redirect } from 'next/navigation'
 import { join } from 'path'
 import bcryptjs from 'bcryptjs'
 import { createAssocie, deleteAssocie, updateAssocie } from '@/utils/associe'
+import { resetAdminPassword, updateAdmin } from '@/utils/admin'
 
 // pdp
 export async function createPdpAction(id: any, pdp: any, role: any) {
@@ -208,4 +209,20 @@ export async function updateAssocieAction(id: any, associe: any) {
   await updateAssocie(id, associe)
 
   revalidatePath(`/admin/associes/${id}`)
+}
+
+// admin
+
+export async function updateAdminAction(id: any, admin: any) {
+  await updateAdmin(id, admin)
+
+  revalidatePath(`/admin/settings`)
+}
+
+export async function resetAdminPasswordAction(id: any, password: any) {
+  // encrypt password
+  password = await bcryptjs.hash(password, 10)
+  await resetAdminPassword(id, password)
+
+  revalidatePath(`/admin/settings`)
 }
