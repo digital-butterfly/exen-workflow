@@ -163,6 +163,10 @@ export async function createApprobateurAction(approbateur: any) {
 }
 
 export async function updateApprobateurAction(id: any, approbateur: any) {
+  if (approbateur.password) {
+    // encrypt password
+    approbateur.password = await bcryptjs.hash(approbateur.password, 10)
+  }
   await updateApprobateur(id, approbateur)
 
   revalidatePath(`/admin/approbateurs/${id}`)
@@ -206,6 +210,10 @@ export async function deleteAssocieAction(id: any) {
 }
 
 export async function updateAssocieAction(id: any, associe: any) {
+  if (associe.password) {
+    // encrypt password
+    associe.password = await bcryptjs.hash(associe.password, 10)
+  }
   await updateAssocie(id, associe)
 
   revalidatePath(`/admin/associes/${id}`)

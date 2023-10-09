@@ -40,13 +40,15 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     <div className="relative h-screen w-screen">
       <aside className="absolute left-0 top-0 h-full w-[300px] border-r border-black/10">
         <div className="my-4 px-4">
-          <Image
-            className="mx-auto pt-2"
-            src={Logo}
-            width={100}
-            height={100}
-            alt="Logo image"
-          />
+          <Link href="/admin">
+            <Image
+              className="mx-auto pt-2"
+              src={Logo}
+              width={100}
+              height={100}
+              alt="Logo image"
+            />
+          </Link>
         </div>
         <div className="pt-10">
           <ul className="px-4">

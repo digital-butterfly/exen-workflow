@@ -28,6 +28,35 @@ const UpdateApprobateurForm = ({ approbateur }: any) => {
     })
   }
 
+  // reset password
+  const handleClick = async () => {
+    const { value: password } = await Swal.fire({
+      title: 'Enter your password',
+      input: 'password',
+      inputLabel: 'Password',
+      inputPlaceholder: 'Enter your password',
+      inputAttributes: {
+        maxlength: '25',
+        autocapitalize: 'off',
+        autocorrect: 'off',
+      },
+      preConfirm: async password => {
+        try {
+          await updateApprobateurAction(approbateurState.id, { password })
+        } catch (error) {
+          Swal.showValidationMessage(`Request failed: ${error}`)
+        }
+      },
+    })
+
+    if (password) {
+      Swal.fire({
+        title: 'Mot de passe réinitialisé avec succès',
+        icon: 'success',
+      })
+    }
+  }
+
   return (
     <form action={action}>
       <div className="grid grid-cols-3 gap-6">
@@ -97,6 +126,13 @@ const UpdateApprobateurForm = ({ approbateur }: any) => {
         type="submit"
       >
         Modifier
+      </button>
+      <button
+        onClick={handleClick}
+        type="button"
+        className="ml-2 mt-6 rounded-xl bg-red-500 px-4 py-2 text-white hover:bg-red-600"
+      >
+        Réinitialisé mot de pass
       </button>
     </form>
   )
