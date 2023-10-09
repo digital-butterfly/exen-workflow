@@ -47,7 +47,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
     <div>
       <div className="mt-5">
         <p>
-          Créer à: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}{' '}
+          Créer le: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}{' '}
           par{' '}
           <span className="font-semibold">
             {pdpState?.Admin?.nom} {pdpState?.Admin?.prenom}

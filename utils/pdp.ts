@@ -134,7 +134,7 @@ export async function updateFile(id: any, data: any) {
 export async function getValidPdp() {
   try {
     const pdp = await prisma.pdp.findMany({
-      where: { etat: 'valid' },
+      where: { OR: [{ etat: 'valid' }, { etat: 'refused' }] },
       orderBy: [{ id: 'asc' }],
     })
     return { pdp }
@@ -144,12 +144,14 @@ export async function getValidPdp() {
   }
 }
 
-export async function validatePdp(id: any) {
+export async function validatePdp(id: any, approbateurId: any) {
   try {
     const validatedPdp = await prisma.pdp.update({
       where: { id: parseInt(id) },
       data: {
         etat: 'tenu_commite',
+        commentaire: null,
+        ApprobateurId: parseInt(approbateurId),
       },
     })
     return { validatedPdp }
@@ -159,13 +161,14 @@ export async function validatePdp(id: any) {
   }
 }
 
-export async function refusePdp(id: any, commentaire: any) {
+export async function refusePdp(id: any, commentaire: any, approbateurId: any) {
   try {
     const refusedPdp = await prisma.pdp.update({
       where: { id: parseInt(id) },
       data: {
         etat: 'refused',
         commentaire,
+        ApprobateurId: parseInt(approbateurId),
       },
     })
     return { refusedPdp }

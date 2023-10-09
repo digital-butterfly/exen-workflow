@@ -22,6 +22,17 @@ export async function getApprobateurById(id: any) {
   }
 }
 
+export async function getApprobateurByEmail(email: any) {
+  try {
+    const approbateur = await prisma.approbateur.findUnique({
+      where: { email: email },
+    })
+    return { approbateur }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getApprobateurPdps(id: any) {
   try {
     const pdps = await prisma.approbateur.findUnique({

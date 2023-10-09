@@ -5,7 +5,7 @@ import { faTimesCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2'
 
-const RefusePdpButton = ({ id }: any) => {
+const RefusePdpButton = ({ id, approbateurId }: any) => {
   const action = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const { value: message } = await Swal.fire({
@@ -18,8 +18,7 @@ const RefusePdpButton = ({ id }: any) => {
       confirmButtonText: 'Send',
       showLoaderOnConfirm: true,
       preConfirm: message => {
-        console.log('message', message)
-        return refusePdpAction(id, message).catch(error => {
+        return refusePdpAction(id, message, approbateurId).catch(error => {
           Swal.showValidationMessage(`Request failed: ${error}`)
         })
       },

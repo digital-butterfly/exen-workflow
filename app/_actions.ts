@@ -174,13 +174,17 @@ export async function deleteApprobateurAction(id: any) {
   redirect('/admin/approbateurs')
 }
 
-export async function validatePdpAction(id: any) {
-  await validatePdp(id)
+export async function validatePdpAction(id: any, approbateurId: any) {
+  await validatePdp(id, approbateurId)
   revalidatePath(`/approbateur/pdp/${id}`)
 }
 
-export async function refusePdpAction(id: any, message: any) {
-  await refusePdp(id, message)
+export async function refusePdpAction(
+  id: any,
+  message: any,
+  approbateurId: any,
+) {
+  await refusePdp(id, message, approbateurId)
   revalidatePath(`/approbateur/pdp/${id}`)
 }
 

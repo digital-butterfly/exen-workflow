@@ -1,4 +1,8 @@
-# Accompagnement PDP App
+# Accompagn
+
+## First thing to do
+
+1. check the if when refusing a pdp the approbateur id is passed to the pdp
 
 ## TODO
 

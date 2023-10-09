@@ -5,9 +5,9 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Swal from 'sweetalert2'
 
-const ValidateButton = ({ id }: any) => {
+const ValidateButton = ({ id, approbateurId }: any) => {
   const handleClick = async () => {
-    await validatePdpAction(id)
+    await validatePdpAction(id, approbateurId)
       .then(() => {
         Swal.fire({
           title: 'Pdp validé avec succès',
