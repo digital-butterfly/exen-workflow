@@ -13,18 +13,14 @@ type Session = {
   } | null
 }
 
-const ApprobateurLayout = async ({
-  children,
-}: {
-  children: React.ReactNode
-}) => {
+const AssocieLayout = async ({ children }: { children: React.ReactNode }) => {
   const session: Session = (await getServerSession(authOptions)) || {
     user: null,
   }
 
   if (!session.user) {
     redirect('/auth/signin')
-  } else if (session.user.role !== 'approbateur') {
+  } else if (session.user.role !== 'associe') {
     redirect('/')
   }
 
@@ -49,4 +45,4 @@ const ApprobateurLayout = async ({
   )
 }
 
-export default ApprobateurLayout
+export default AssocieLayout

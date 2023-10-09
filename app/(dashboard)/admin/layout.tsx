@@ -10,6 +10,7 @@ import {
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { redirect } from 'next/navigation'
 
 const links = [
   { name: 'PDP', href: '/admin/pdp', icon: faUser },
@@ -27,6 +28,12 @@ type Session = {
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   const session: Session = (await getServerSession(authOptions)) || {
     user: null,
+  }
+
+  if (!session.user) {
+    redirect('/auth/signin')
+  } else if (session.user.role !== 'admin') {
+    redirect('/')
   }
 
   return (

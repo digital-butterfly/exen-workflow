@@ -29,17 +29,18 @@ const SignInForm = () => {
         callbackUrl: '/',
       })
 
-      if (signInResponse.ok) {
+      if (signInResponse?.ok) {
         router.refresh()
-        setMessage('Invalid credentials')
-      } else if (signInResponse.status === 401) {
-        setMessage('Invalid credentials')
+        setTimeout(() => {
+          setMessage('Identifiants invalides')
+        }, 1500)
+      } else if (signInResponse?.status === 401) {
+        setMessage('Identifiants invalides')
       } else {
-        const data = await signInResponse.json()
-        setMessage(data.message || 'Something went wrong')
+        setMessage("Quelque chose s'est mal passé")
       }
     } catch (error) {
-      setMessage('Something went wrong')
+      setMessage("Quelque chose s'est mal passé")
     }
 
     setIsLoading(false)
