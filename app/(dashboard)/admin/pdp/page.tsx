@@ -8,7 +8,7 @@ const PdpPage = async () => {
   return (
     <div>
       <div className="mt-10 flex items-center justify-between">
-        <h1 className="text-3xl">List des porteurs de projets</h1>
+        <h1 className="text-3xl">Liste des porteurs de projets</h1>
 
         <AddButton path={'pdp/create'} />
       </div>
