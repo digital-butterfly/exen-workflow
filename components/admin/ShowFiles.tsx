@@ -7,7 +7,7 @@ import Link from 'next/link'
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
-const ShowFiles = ({ id, pdp }: any) => {
+const ShowFiles = ({ id, pdp, isApprobateur = false }: any) => {
   const files = [
     { name: 'CIN', path: pdp?.doc_cin, key: 'doc_cin' },
     { name: 'CV', path: pdp?.doc_cv, key: 'doc_cv' },
@@ -51,11 +51,15 @@ const ShowFiles = ({ id, pdp }: any) => {
       html: (
         <div className="flex justify-center gap-4">
           <Button onClick={() => showFile(e.path)}>Voir document</Button>
-          <Button>
-            <Link href={`/admin/pdp/validate/update/${id}/${e.key}/${e.name}`}>
-              Changer document
-            </Link>
-          </Button>
+          {!isApprobateur && (
+            <Button>
+              <Link
+                href={`/admin/pdp/validate/update/${id}/${e.key}/${e.name}`}
+              >
+                Changer document
+              </Link>
+            </Button>
+          )}
         </div>
       ),
       icon: 'question',

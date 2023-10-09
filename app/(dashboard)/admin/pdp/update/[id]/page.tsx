@@ -26,7 +26,9 @@ const PdpPageId = async ({ params }: any) => {
       {/* Pdp info */}
       <main className="mt-10">
         <div className="flex justify-between">
-          <h1 className="text-3xl">Pdp Info</h1>
+          <h1 className="text-3xl">
+            Pdp Info ({pdp?.nom} {pdp?.prenom}){' '}
+          </h1>
           <div className="flex gap-4">
             {pdp?.etat == 'sourcing' && (
               <Link
@@ -42,9 +44,34 @@ const PdpPageId = async ({ params }: any) => {
               </Link>
             )}
             {/* Delete pdp button */}
-            <DeletePdpButton pdp={pdp} />
+            {pdp?.etat !== 'valid' && <DeletePdpButton pdp={pdp} />}
           </div>
         </div>
+
+        {/* Validation Message */}
+        {pdp?.etat == 'tenu_commite' && (
+          <p className="mt-6 flex flex-col rounded-xl bg-green-100 p-4 text-xl text-green-500">
+            <span>
+              Validé par:{' '}
+              <span className="font-semibold">
+                {pdp.Approbateur?.nom} {pdp.Approbateur?.prenom}
+              </span>
+            </span>
+          </p>
+        )}
+
+        {/* Error Message */}
+        {pdp?.commentaire && (
+          <p className="mt-6 flex flex-col rounded-xl bg-red-100 p-4 text-xl text-red-500">
+            <span>
+              Refusé par:{' '}
+              <span className="font-semibold">
+                {pdp.Approbateur?.nom} {pdp.Approbateur?.prenom}
+              </span>
+            </span>
+            {pdp?.commentaire}
+          </p>
+        )}
 
         <div>
           <UpdatePdpForm pdp={pdp} />

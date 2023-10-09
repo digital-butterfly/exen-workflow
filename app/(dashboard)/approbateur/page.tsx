@@ -4,7 +4,6 @@ import Link from 'next/link'
 const ApprobateurPage = async () => {
   const { pdp } = await getValidPdp()
 
-  console.log(pdp)
   return (
     <div>
       <h1 className="text-3xl">List des porteurs de projet à vérifier</h1>
