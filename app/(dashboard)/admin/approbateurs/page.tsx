@@ -8,7 +8,7 @@ const ApprobateursPage = async () => {
   return (
     <div>
       <div className="mt-10 flex justify-between">
-        <h1 className="text-3xl">List des approbateurs</h1>
+        <h1 className="text-3xl">Liste des approbateurs</h1>
 
         <AddButton path={'approbateurs/create'} />
       </div>
