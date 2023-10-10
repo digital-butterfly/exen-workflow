@@ -37,7 +37,7 @@ const DeletePdpButton = ({ pdp }: any) => {
           className="mr-2"
           style={{ width: '1rem', display: 'inline' }}
         />
-        Supprimer pdp
+        Supprimer
       </button>
     </form>
   )

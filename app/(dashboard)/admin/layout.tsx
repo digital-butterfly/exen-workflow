@@ -10,6 +10,7 @@ import {
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { redirect } from 'next/navigation'
 
 const links = [
   { name: 'PDP', href: '/admin/pdp', icon: faUser },
@@ -29,17 +30,25 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
     user: null,
   }
 
+  if (!session.user) {
+    redirect('/auth/signin')
+  } else if (session.user.role !== 'admin') {
+    redirect('/')
+  }
+
   return (
     <div className="relative h-screen w-screen">
       <aside className="absolute left-0 top-0 h-full w-[300px] border-r border-black/10">
         <div className="my-4 px-4">
-          <Image
-            className="mx-auto pt-2"
-            src={Logo}
-            width={100}
-            height={100}
-            alt="Logo image"
-          />
+          <Link href="/admin">
+            <Image
+              className="mx-auto pt-2"
+              src={Logo}
+              width={100}
+              height={100}
+              alt="Logo image"
+            />
+          </Link>
         </div>
         <div className="pt-10">
           <ul className="px-4">

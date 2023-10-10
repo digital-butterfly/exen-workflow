@@ -55,6 +55,7 @@ export async function updateAssocie(id: any, data: any) {
       where: { id: Number(id) },
       data,
     })
+    console.log(associe)
     return { associe }
   } catch (error) {
     console.log(error)

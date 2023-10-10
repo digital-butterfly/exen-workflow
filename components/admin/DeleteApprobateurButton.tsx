@@ -35,7 +35,7 @@ const DeleteApprobateurButton = ({ id }: any) => {
           className="mr-2"
           style={{ width: '1rem', display: 'inline' }}
         />
-        Supprimer Approbateur
+        Supprimer
       </button>
     </form>
   )
