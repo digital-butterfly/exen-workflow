@@ -43,7 +43,7 @@ const UpdateApprobateurForm = ({ approbateur }: any) => {
       },
       preConfirm: async password => {
         try {
-          await updateApprobateurAction(approbateurState.id, password)
+          await updateApprobateurAction(approbateurState.id, { password })
         } catch (error) {
           Swal.showValidationMessage(`Request failed: ${error}`)
         }
