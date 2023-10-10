@@ -4,6 +4,8 @@
 
 1. show more info in /admin
 
+1. add dropdowns to create pdp
+
 1. restyle the app
 
 1. prevent users from using dev tools
