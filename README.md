@@ -2,12 +2,7 @@
 
 ## TODO
 
-1. add loading
-
-1. add filters to show all pdp
-
-   - add 'à moi' to filters to show the pdp created by the user or make the
-     associe see his pdp only
+1. show more info in /admin
 
 1. restyle the app
 
@@ -46,3 +41,12 @@
 1. add role based auth
 
 1. fix the auth error message (maybe throw an error and catch it in client)
+
+1. add loading
+
+1. add filters to show all pdp
+
+   - add 'à moi' to filters to show the pdp created by the user or make the
+     associe see his pdp only
+
+   - add state to table cols
