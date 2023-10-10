@@ -9,21 +9,22 @@ import { getServerSession } from 'next-auth'
 
 const PdpInfoPage = async ({ params }: any) => {
   const session = await getServerSession(authOptions)
-  const { approbateur } = await getApprobateurByEmail(session?.user?.email)
+  const approbateurByEmail = await getApprobateurByEmail(session?.user?.email)
   const { id } = params
   const { pdp } = await getPdpById(id)
+  const approbateur = approbateurByEmail?.approbateur
 
   return (
     <div>
       <div className="flex justify-between">
         <h1 className="text-3xl">
-          Informations de {pdp?.nom} {pdp?.prenom}
+          Informations de &ldquo;{pdp?.nom} {pdp?.prenom}&rdquo;
         </h1>
         {pdp?.etat !== 'tenu_commite' ? (
           <div className="flex gap-4">
-            <ValidateButton id={pdp?.id} approbateurId={approbateur.id} />
+            <ValidateButton id={pdp?.id} approbateurId={approbateur?.id} />
             {pdp?.etat !== 'refused' && (
-              <RefusePdpButton id={pdp?.id} approbateurId={approbateur.id} />
+              <RefusePdpButton id={pdp?.id} approbateurId={approbateur?.id} />
             )}
           </div>
         ) : (
@@ -33,7 +34,7 @@ const PdpInfoPage = async ({ params }: any) => {
         )}
       </div>
 
-      <div className="mt-8">
+      <div className="mt-16">
         <ShowPdpInfo pdp={pdp} />
       </div>
 

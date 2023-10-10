@@ -33,7 +33,7 @@ const ShowPdpInfo = ({ pdp }: any) => {
   return (
     <div className="grid grid-cols-4 gap-10">
       {info.map(e => (
-        <div className="grid grid-cols-2 gap-6 text-xl" key={e.nom}>
+        <div className="grid grid-cols-2 gap-6 text-lg" key={e.nom}>
           <span className="block text-gray-500">{e.nom}</span>
           <span className="text-gray-900">{e?.value}</span>
         </div>

@@ -8,6 +8,7 @@ import Link from 'next/link'
 
 const PdpPageId = async ({ params }: any) => {
   const { pdp } = await getPdpById(params.id)
+
   return (
     <div>
       {/* Go back button */}
@@ -44,7 +45,9 @@ const PdpPageId = async ({ params }: any) => {
               </Link>
             )}
             {/* Delete pdp button */}
-            {pdp?.etat !== 'valid' && <DeletePdpButton pdp={pdp} />}
+            {(pdp?.etat == 'valid' || pdp?.etat == 'sourcing') && (
+              <DeletePdpButton pdp={pdp} />
+            )}
           </div>
         </div>
 

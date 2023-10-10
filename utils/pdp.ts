@@ -134,7 +134,9 @@ export async function updateFile(id: any, data: any) {
 export async function getValidPdp() {
   try {
     const pdp = await prisma.pdp.findMany({
-      where: { OR: [{ etat: 'valid' }, { etat: 'refused' }] },
+      where: {
+        OR: [{ etat: 'valid' }, { etat: 'refused' }, { etat: 'tenu_commite' }],
+      },
       orderBy: [{ id: 'asc' }],
     })
     return { pdp }
