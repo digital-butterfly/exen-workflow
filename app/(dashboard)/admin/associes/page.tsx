@@ -7,7 +7,7 @@ const AssociesPage = async () => {
   return (
     <div>
       <div className="mt-10 flex justify-between">
-        <h1 className="text-3xl">Associes page</h1>
+        <h1 className="text-3xl">Liste des associes</h1>
 
         <AddButton path={'associes/create'} />
       </div>
