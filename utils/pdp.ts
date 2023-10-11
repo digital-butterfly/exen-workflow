@@ -73,15 +73,23 @@ export async function createPdp(id: any, pdp: any, role: any) {
   }
 }
 
+function formatDate(dateString: string) {
+  const [day, month, year] = dateString.split('/')
+  const formattedDate = `${year}-${month}-${day}`
+  return new Date(formattedDate)
+}
+
 export async function updatePdp(id: any, pdp: any) {
+  pdp.date_naissance = formatDate(pdp.date_naissance)
+  pdp.date_form_juridique = formatDate(pdp.date_form_juridique)
+
   try {
+    const formattedPdp = {
+      ...pdp,
+    }
     const updatedPdp = await prisma.pdp.update({
       where: { id: parseInt(id) },
-      data: {
-        ...pdp,
-        date_naissance: new Date(pdp.date_naissance),
-        date_form_juridique: new Date(pdp.date_form_juridique),
-      },
+      data: formattedPdp,
     })
     return { updatedPdp }
   } catch (error) {
