@@ -1,14 +1,14 @@
 import DeletePdpButton from '@/components/admin/DeletePdpButton'
 import ShowFiles from '@/components/admin/ShowFiles'
 import UpdatePdpForm from '@/components/admin/UpdatePdpForm'
-import { getPdpById } from '@/utils/pdp'
+import { getOnlyPdpById, getPdpById } from '@/utils/pdp'
 import { faArrowLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
 const PdpPageId = async ({ params }: any) => {
-  const { pdp } = await getPdpById(params.id)
-
+  const { pdp } = await getOnlyPdpById(params.id)
+  const { pdp: pdpWithRelations } = await getPdpById(params.id)
   return (
     <div>
       {/* Go back button */}
@@ -57,7 +57,8 @@ const PdpPageId = async ({ params }: any) => {
             <span>
               Validé par:{' '}
               <span className="font-semibold">
-                {pdp.Approbateur?.nom} {pdp.Approbateur?.prenom}
+                {pdpWithRelations?.Approbateur?.nom}{' '}
+                {pdpWithRelations?.Approbateur?.prenom}
               </span>
             </span>
           </p>
@@ -69,7 +70,8 @@ const PdpPageId = async ({ params }: any) => {
             <span>
               Refusé par:{' '}
               <span className="font-semibold">
-                {pdp.Approbateur?.nom} {pdp.Approbateur?.prenom}
+                {pdpWithRelations?.Approbateur?.nom}{' '}
+                {pdpWithRelations?.Approbateur?.prenom}
               </span>
             </span>
             {pdp?.commentaire}
