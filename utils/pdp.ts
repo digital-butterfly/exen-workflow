@@ -12,6 +12,18 @@ export async function getPdp() {
   }
 }
 
+export async function getOnlyPdpById(id: any) {
+  try {
+    const pdp = await prisma.pdp.findUnique({
+      where: { id: parseInt(id) },
+    })
+    return { pdp }
+  } catch (error) {
+    console.log(error)
+    return { error }
+  }
+}
+
 export async function getPdpById(id: any) {
   try {
     const pdp = await prisma.pdp.findUnique({
@@ -67,6 +79,8 @@ export async function updatePdp(id: any, pdp: any) {
       where: { id: parseInt(id) },
       data: {
         ...pdp,
+        date_naissance: new Date(pdp.date_naissance),
+        date_form_juridique: new Date(pdp.date_form_juridique),
       },
     })
     return { updatedPdp }
