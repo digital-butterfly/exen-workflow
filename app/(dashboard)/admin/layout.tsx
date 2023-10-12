@@ -6,7 +6,7 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import {
   faUser,
-  faUserNurse,
+  faUserShield,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -15,7 +15,7 @@ import { redirect } from 'next/navigation'
 const links = [
   { name: 'PDP', href: '/admin/pdp', icon: faUser },
   { name: 'Associes', href: '/admin/associes', icon: faUserTie },
-  { name: 'Approbateurs', href: '/admin/approbateurs', icon: faUserNurse },
+  { name: 'Approbateurs', href: '/admin/approbateurs', icon: faUserShield },
 ]
 
 type Session = {
@@ -58,7 +58,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
                   <FontAwesomeIcon
                     icon={link.icon}
                     className="mr-5"
-                    style={{ width: '1rem', display: 'inline' }}
+                    style={{ width: '1.5rem', display: 'inline' }}
                   />
                   {link.name}
                 </li>

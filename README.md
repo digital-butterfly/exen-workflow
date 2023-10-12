@@ -6,6 +6,8 @@
 
 1. add dropdowns to create pdp
 
+1. show only the pdp created by the user in /associe
+
 1. restyle the app
 
 1. prevent users from using dev tools
