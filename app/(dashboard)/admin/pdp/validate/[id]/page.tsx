@@ -12,7 +12,7 @@ const ValidatePage = async ({ params }: any) => {
   return (
     <div>
       {/* Go back button */}
-      <Link className={ReturnButtonClass} href={'/admin/pdp'}>
+      <Link className={ReturnButtonClass} href={`/admin/pdp/update/${id}`}>
         <FontAwesomeIcon
           icon={faArrowLeft}
           className="mr-2"

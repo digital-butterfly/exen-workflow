@@ -237,7 +237,9 @@ const UpdatePdpForm = ({ pdp }: any) => {
               value={pdpState.province}
             >
               {provinces[
-                pdpState.commune.toLowerCase() as keyof typeof provinces
+                pdpState.commune
+                  .toLowerCase()
+                  .replace(/\s/g, '') as keyof typeof provinces
               ].map(province => (
                 <option key={province} value={province}>
                   {province}
@@ -250,7 +252,6 @@ const UpdatePdpForm = ({ pdp }: any) => {
             <select
               name="experience_1"
               className="mt-2 border p-2"
-              required
               onChange={handleChange}
               value={pdpState.experience_1}
             >
@@ -269,7 +270,6 @@ const UpdatePdpForm = ({ pdp }: any) => {
             <select
               name="experience_2"
               className="mt-2 border p-2"
-              required
               onChange={handleChange}
               value={pdpState.experience_2}
             >

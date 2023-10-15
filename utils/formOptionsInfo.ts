@@ -20,7 +20,7 @@ export const communes = {
     'Guercif',
     'Figuig',
   ],
-  tth: ['AlHoceima', 'Tanger Tetouan'],
+  tth: ['Al Hoceima', 'Tanger Tetouan'],
 }
 
 export const provinces = {
@@ -151,7 +151,9 @@ export const provinces = {
   ],
   guercif: ['Guercif', 'Tendrara', 'Ain Erreggada'],
   // TTH
-  tangertaounate: [
+  tangertetouan: [
+    'Tanger',
+    'Tetouan',
     'Taounate',
     'Ouel Laou',
     'Mdiq-Fnideq',
@@ -177,7 +179,6 @@ export const provinces = {
     'Zinat',
     'Al Kharroub',
     'Sahtryine',
-    'Tanger',
     'Chefchaouen',
     'Ouezzane',
     'Fahs-Bni Makada',

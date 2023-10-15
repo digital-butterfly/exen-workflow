@@ -5,7 +5,7 @@ import { redirect } from 'next/navigation'
 import { join } from 'path'
 import Swal from 'sweetalert2'
 
-const ValidatePdpForm = async ({ pdp }: any) => {
+const ValidatePdpForm = ({ pdp }: any) => {
   // console.log(pdp)
   const inputs = [
     { label: 'CIN', name: 'doc_cin' },
@@ -73,12 +73,6 @@ const ValidatePdpForm = async ({ pdp }: any) => {
 
     // Call the addFiles function to add the file names to the pdp object
     await addFiles(actionPdp.id, filesNames)
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Pdp validé',
-      text: `Le pdp de ${actionPdp.nom} a été validé avec succès`,
-    })
 
     // Redirect to /admin/pdp/update/[id]
     redirect(`/admin/pdp/update/${actionPdp.id}`)

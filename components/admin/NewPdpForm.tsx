@@ -239,8 +239,13 @@ const NewPdpForm = ({ id }: any) => {
               onChange={handleChange}
               value={formData.province}
             >
+              <option value="" disabled>
+                -- choisir province --
+              </option>
               {provinces[
-                formData.commune.toLowerCase() as keyof typeof provinces
+                formData.commune
+                  .toLowerCase()
+                  .replace(/\s/g, '') as keyof typeof provinces
               ].map(province => (
                 <option key={province} value={province}>
                   {province}
@@ -253,7 +258,6 @@ const NewPdpForm = ({ id }: any) => {
             <select
               name="experience_1"
               className="mt-2 border p-2"
-              required
               onChange={handleChange}
               value={formData.experience_1}
             >
@@ -272,7 +276,6 @@ const NewPdpForm = ({ id }: any) => {
             <select
               name="experience_2"
               className="mt-2 border p-2"
-              required
               onChange={handleChange}
               value={formData.experience_2}
             >
