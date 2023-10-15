@@ -1,32 +1,41 @@
 'use client'
 
 import { createPdpAction } from '@/app/_actions'
+import {
+  communes,
+  experiences,
+  formJuridiques,
+  provinces,
+  regions,
+} from '@/utils/formOptionsInfo'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
+const initialFormData = {
+  irchad_id: '',
+  nom: '',
+  prenom: '',
+  sexe: 'homme',
+  date_naissance: '',
+  num_cin: '',
+  tel: '',
+  email: '',
+  type_form_juridique: 'SARL',
+  date_form_juridique: '',
+  region: 'Oriental',
+  commune: 'Oujda',
+  province: '',
+  nom_projet: '',
+  secteur_projet: '',
+  experience_1: '',
+  experience_2: '',
+  experience_3: '',
+  experience_4: '',
+  experience_5: '',
+}
+
 const NewPdpForm = ({ id }: any) => {
-  const [formData, setFormData] = useState({
-    irchad_id: '',
-    nom: '',
-    prenom: '',
-    sexe: '',
-    date_naissance: '',
-    num_cin: '',
-    tel: '',
-    email: '',
-    type_form_juridique: '',
-    date_form_juridique: '',
-    region: '',
-    commune: '',
-    province: '',
-    nom_projet: '',
-    secteur_projet: '',
-    experience_1: '',
-    experience_2: '',
-    experience_3: '',
-    experience_4: '',
-    experience_5: '',
-  })
+  const [formData, setFormData] = useState(initialFormData)
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -48,28 +57,7 @@ const NewPdpForm = ({ id }: any) => {
       confirmButtonText: 'OK',
     })
     // reset the form
-    setFormData({
-      irchad_id: '',
-      nom: '',
-      prenom: '',
-      sexe: 'homme',
-      date_naissance: '',
-      num_cin: '',
-      tel: '',
-      email: '',
-      type_form_juridique: '',
-      date_form_juridique: '',
-      region: '',
-      commune: '',
-      province: '',
-      nom_projet: '',
-      secteur_projet: '',
-      experience_1: '',
-      experience_2: '',
-      experience_3: '',
-      experience_4: '',
-      experience_5: '',
-    })
+    setFormData(initialFormData)
   }
 
   const handleSubmit = (e: any) => {
@@ -183,15 +171,19 @@ const NewPdpForm = ({ id }: any) => {
           </div>
           <div className="flex flex-col">
             <label>Type de form juridique</label>
-            <input
+            <select
+              name="type_form_juridique"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Type de form juridique"
+              required
               onChange={handleChange}
               value={formData.type_form_juridique}
-              name="type_form_juridique"
-              required
-            />
+            >
+              {formJuridiques.map(formJuridique => (
+                <option key={formJuridique} value={formJuridique}>
+                  {formJuridique}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label>Date de form juridique</label>
@@ -206,61 +198,93 @@ const NewPdpForm = ({ id }: any) => {
           </div>
           <div className="flex flex-col">
             <label>Region</label>
-            <input
+            <select
+              name="region"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Region"
+              required
               onChange={handleChange}
               value={formData.region}
-              name="region"
-              required
-            />
+            >
+              {regions.map(region => (
+                <option key={region} value={region}>
+                  {region}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label>Commune</label>
-            <input
+            <select
+              name="commune"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Commune"
+              required
               onChange={handleChange}
               value={formData.commune}
-              name="commune"
-              required
-            />
+            >
+              {communes[
+                formData.region.toLowerCase() as keyof typeof communes
+              ].map(commune => (
+                <option key={commune} value={commune}>
+                  {commune}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label>Province</label>
-            <input
+            <select
+              name="province"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Province"
+              required
               onChange={handleChange}
               value={formData.province}
-              name="province"
-              required
-            />
+            >
+              {provinces[
+                formData.commune.toLowerCase() as keyof typeof provinces
+              ].map(province => (
+                <option key={province} value={province}>
+                  {province}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label>Experience 1</label>
-            <input
+            <select
+              name="experience_1"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Experience 1"
+              required
               onChange={handleChange}
               value={formData.experience_1}
-              name="experience_1"
-            />
+            >
+              <option value="" disabled>
+                -- choisir experience --
+              </option>
+              {experiences.map(experience => (
+                <option key={experience} value={experience}>
+                  {experience}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex flex-col">
             <label>Experience 2</label>
-            <input
+            <select
+              name="experience_2"
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Experience 2"
+              required
               onChange={handleChange}
               value={formData.experience_2}
-              name="experience_2"
-            />
+            >
+              <option value="" disabled>
+                -- choisir experience --
+              </option>
+              {experiences.map(experience => (
+                <option key={experience} value={experience}>
+                  {experience}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
