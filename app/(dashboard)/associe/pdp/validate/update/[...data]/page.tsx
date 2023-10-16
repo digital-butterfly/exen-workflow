@@ -49,7 +49,7 @@ const UpdateFilePage = async ({ params }: any) => {
         timer: 1500,
       })
 
-      redirect(`/admin/pdp/update/${id}`)
+      redirect(`/associe/pdp/update/${id}`)
     } else {
       console.log('no file')
     }

@@ -5,10 +5,12 @@ import Image from 'next/image'
 
 import Logo from '/public/imgs/transparent-logo.png'
 import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 type Session = {
   user: {
     name: string
+    email: string
     role: string
   } | null
 }
@@ -28,7 +30,9 @@ const AssocieLayout = async ({ children }: { children: React.ReactNode }) => {
     <div className="relative h-screen w-screen">
       <nav className="border-gray-200 bg-white ">
         <div className="flex h-[60px] flex-wrap items-center justify-between border-b-2 px-10">
-          <Image src={Logo} height={100} width={100} alt="logo" />
+          <Link href={'/associe'}>
+            <Image src={Logo} height={100} width={100} alt="logo" />
+          </Link>
 
           <div id="navbar-default">
             <ul className="mt-0 flex flex-row space-x-8 rounded-lg border-0 p-0 font-medium">

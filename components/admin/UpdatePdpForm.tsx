@@ -8,10 +8,11 @@ import {
   provinces,
   regions,
 } from '@/utils/formOptionsInfo'
+import { create } from 'domain'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
-const UpdatePdpForm = ({ pdp }: any) => {
+const UpdatePdpForm = ({ pdp, createdBy }: any) => {
   const [pdpState, setPdpState] = useState({
     ...pdp,
     date_naissance: new Date(pdp.date_naissance).toLocaleDateString('fr-FR'),
@@ -56,10 +57,7 @@ const UpdatePdpForm = ({ pdp }: any) => {
       <div className="mt-5">
         <p>
           Créer le: {pdpState.createdAt.toLocaleString('fr-FR').substr(0, 10)}{' '}
-          par{' '}
-          <span className="font-semibold">
-            {pdpState?.Admin?.nom} {pdpState?.Admin?.prenom}
-          </span>
+          par <span className="font-semibold">{createdBy}</span>
         </p>
         {/* <p>
           Dernière modification:{' '}

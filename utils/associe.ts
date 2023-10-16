@@ -22,6 +22,17 @@ export async function getAssocieById(id: any) {
   }
 }
 
+export async function getAssocieByEmail(email: string) {
+  try {
+    const associe = await prisma.associe.findUnique({
+      where: { email: email },
+    })
+    return associe
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getAssociePdps(id: any) {
   try {
     const pdps = await prisma.associe.findUnique({
@@ -30,8 +41,21 @@ export async function getAssociePdps(id: any) {
         PDP: true,
       },
     })
-    console.log(pdps)
     return { pdps }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getAssociePdpsByEmail(email: string) {
+  try {
+    const pdps = await prisma.associe.findUnique({
+      where: { email: email },
+      select: {
+        PDP: true,
+      },
+    })
+    return pdps
   } catch (error) {
     console.log(error)
   }

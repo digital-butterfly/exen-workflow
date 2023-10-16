@@ -34,7 +34,7 @@ const initialFormData = {
   experience_5: '',
 }
 
-const NewPdpForm = ({ id }: any) => {
+const NewPdpForm = ({ id, role }: any) => {
   const [formData, setFormData] = useState(initialFormData)
 
   const handleChange = (e: any) => {
@@ -45,7 +45,7 @@ const NewPdpForm = ({ id }: any) => {
   async function action(data: FormData) {
     // call a server action to create a todo
     try {
-      await createPdpAction(id, formData, 'admin')
+      await createPdpAction(id, formData, role)
     } catch (error) {
       console.log(error)
     }

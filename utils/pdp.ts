@@ -56,8 +56,6 @@ export async function createPdp(id: any, pdp: any, role: any) {
   pdp.date_naissance = new Date(pdp.date_naissance)
   pdp.date_form_juridique = new Date(pdp.date_form_juridique)
 
-  console.log(pdp)
-
   try {
     const newPdp = await prisma.pdp.create({
       data: {
@@ -65,7 +63,6 @@ export async function createPdp(id: any, pdp: any, role: any) {
       },
     })
 
-    console.log(newPdp)
     return { newPdp }
   } catch (error) {
     console.log(error)
