@@ -6,24 +6,16 @@ import { faArrowLeft, faCheckCircle } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Link from 'next/link'
 
-const PdpPageId = async ({ params }: any) => {
+const PdpPage = async ({ params }: any) => {
   const { pdp } = await getOnlyPdpById(params.id)
   const { pdp: pdpWithRelations } = await getPdpById(params.id)
-  let createdBy
-  if (pdpWithRelations?.Admin) {
-    createdBy =
-      pdpWithRelations?.Admin?.nom + ' ' + pdpWithRelations?.Admin?.prenom
-  } else if (pdpWithRelations?.Associe) {
-    createdBy =
-      pdpWithRelations?.Associe?.nom + ' ' + pdpWithRelations?.Associe?.prenom
-  }
-
+  console.log(pdpWithRelations)
   return (
     <div>
       {/* Go back button */}
       <Link
         className="rounded-lg border p-4 text-gray-400 transition-all hover:bg-gray-100"
-        href={'/admin/pdp'}
+        href={'/associe'}
       >
         <FontAwesomeIcon
           icon={faArrowLeft}
@@ -43,7 +35,7 @@ const PdpPageId = async ({ params }: any) => {
           <div className="flex gap-4">
             {pdp?.etat == 'sourcing' && (
               <Link
-                href={`/admin/pdp/validate/${pdp?.id}`}
+                href={`/associe/pdp/validate/${pdp?.id}`}
                 className="rounded-lg bg-green-500 px-4 py-2 text-white transition-all hover:bg-green-400"
               >
                 <FontAwesomeIcon
@@ -89,7 +81,10 @@ const PdpPageId = async ({ params }: any) => {
         )}
 
         <div>
-          <UpdatePdpForm pdp={pdp} createdBy={createdBy} />
+          <UpdatePdpForm
+            pdp={pdp}
+            createdBy={`${pdpWithRelations?.Associe?.nom} ${pdpWithRelations?.Associe?.prenom}`}
+          />
         </div>
         {pdp?.etat != 'sourcing' && (
           <div className="mt-6">
@@ -100,5 +95,4 @@ const PdpPageId = async ({ params }: any) => {
     </div>
   )
 }
-
-export default PdpPageId
+export default PdpPage

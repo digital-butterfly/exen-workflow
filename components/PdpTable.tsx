@@ -39,6 +39,7 @@ const PdpTable = ({ pdp, path }: Props) => {
 
   return (
     <div>
+      {/* Filter buttons */}
       <div className="mb-6 flex gap-4">
         <button
           className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
@@ -81,12 +82,10 @@ const PdpTable = ({ pdp, path }: Props) => {
           {pdp.filter(p => p.etat === states.refused).length})
         </button>
       </div>
+      {/* Table */}
       <table className="w-full text-left text-sm text-gray-500 ">
         <thead className="text-xs uppercase text-gray-700">
           <tr className="text-base">
-            <th scope="col" className="px-6 py-3">
-              Odr
-            </th>
             <th scope="col" className="px-6 py-3">
               Référence Irchad
             </th>
@@ -113,12 +112,6 @@ const PdpTable = ({ pdp, path }: Props) => {
         <tbody>
           {pdpState.map(e => (
             <tr key={e.id} className="border-b bg-white">
-              <th
-                scope="row"
-                className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
-              >
-                {e.id}
-              </th>
               <td className="px-6 py-4">{e.irchad_id}</td>
               <td className="px-6 py-4">{e.nom}</td>
               <td className="px-6 py-4">{e.prenom}</td>

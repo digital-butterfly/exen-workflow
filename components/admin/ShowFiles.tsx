@@ -53,9 +53,7 @@ const ShowFiles = ({ id, pdp, isApprobateur = false }: any) => {
           <Button onClick={() => showFile(e.path)}>Voir document</Button>
           {!isApprobateur && (
             <Button>
-              <Link
-                href={`/admin/pdp/validate/update/${id}/${e.key}/${e.name}`}
-              >
+              <Link href={`../validate/update/${id}/${e.key}/${e.name}`}>
                 Changer document
               </Link>
             </Button>

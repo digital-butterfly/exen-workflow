@@ -3,7 +3,6 @@
 import {
   createApprobateur,
   deleteApprobateur,
-  getApprobateurs,
   updateApprobateur,
 } from '@/utils/approbateur'
 import {
@@ -36,8 +35,6 @@ export async function updatePdpAction(id: any, pdp: any) {
 }
 
 export async function deletePdpAction(id: any, pdp: any) {
-  await deletePdp(id)
-
   if (pdp?.doc_cin) {
     unlink(join(process.cwd(), 'public', 'uploads', pdp?.doc_cin), err => {
       if (err) {
@@ -58,7 +55,7 @@ export async function deletePdpAction(id: any, pdp: any) {
 
   if (pdp?.doc_forme_juridique) {
     unlink(
-      join(process.cwd(), 'public', 'uploads', pdp?.doc_form_juridique),
+      join(process.cwd(), 'public', 'uploads', pdp?.doc_forme_juridique),
       err => {
         if (err) {
           console.error(err)
@@ -70,7 +67,7 @@ export async function deletePdpAction(id: any, pdp: any) {
 
   if (pdp?.doc_contrat_de_bail) {
     unlink(
-      join(process.cwd(), 'public', 'uploads', pdp?.contrat_de_bail),
+      join(process.cwd(), 'public', 'uploads', pdp?.doc_contrat_de_bail),
       err => {
         if (err) {
           console.error(err)
@@ -148,8 +145,9 @@ export async function deletePdpAction(id: any, pdp: any) {
     )
   }
 
+  await deletePdp(id)
   // redirect to /admin/pdp
-  redirect('/admin/pdp')
+  redirect('..')
 }
 
 // approbateur
