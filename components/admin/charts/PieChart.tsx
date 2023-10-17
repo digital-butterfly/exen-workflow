@@ -5,12 +5,19 @@ import { Chart as ChartJs, Title, Tooltip, Legend, ArcElement } from 'chart.js'
 
 ChartJs.register(Title, Tooltip, Legend, ArcElement)
 
-const PieChart = ({ data, title, group }: any) => {
-  const [chartData, setChartData] = useState({
-    labels: [],
-    datasets: [{}],
-  })
+interface ChardData {
+  labels: string[]
+  datasets: {
+    data: number[]
+    backgroundColor: string[]
+  }[]
+}
 
+const PieChart = ({ data, title, group }: any) => {
+  const [chartData, setChartData] = useState<ChardData>({
+    labels: [],
+    datasets: [],
+  })
   const [chartOptions, setChartOptions] = useState({})
 
   // Group pdp by group
@@ -25,11 +32,13 @@ const PieChart = ({ data, title, group }: any) => {
     {},
   )
 
-  console.log(groupCounts)
-
+  // if the first key is femme the color should be pink else be blue
+  let colors = ['#009fe1aa', '#FF6384aa']
+  if (Object.keys(groupCounts)[0] === 'femme') {
+    colors = ['#FF6384aa', '#009fe1aa']
+  }
   useEffect(() => {
     const keys = Object.keys(groupCounts)
-    const colors = ['#009fe1aa', '#FF6384aa']
     const backgroundColor = keys.map(
       (key, index) => colors[index % colors.length],
     )
