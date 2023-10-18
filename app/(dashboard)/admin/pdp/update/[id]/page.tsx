@@ -55,9 +55,7 @@ const PdpPageId = async ({ params }: any) => {
               </Link>
             )}
             {/* Delete pdp button */}
-            {(pdp?.etat == 'valid' || pdp?.etat == 'sourcing') && (
-              <DeletePdpButton pdp={pdp} />
-            )}
+            {pdp?.etat != 'tenu_commite' && <DeletePdpButton pdp={pdp} />}
           </div>
         </div>
 

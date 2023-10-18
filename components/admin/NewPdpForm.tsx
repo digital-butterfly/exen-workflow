@@ -50,7 +50,12 @@ const NewPdpForm = ({ id, role }: any) => {
     try {
       await createPdpAction(id, formData, role)
     } catch (error) {
-      console.log(error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Une erreur est survenue lors de la création du porteur de projet',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
     }
 
     Swal.fire({
