@@ -70,10 +70,10 @@ const AdminPage = async () => {
       <div className="mt-10 grid grid-cols-3 gap-10">
         <State data={pdp} />
         <Sexe pdp={pdp} />
-        <SecteurProjet data={pdp} />
+        <FormJuridique data={pdp} />
       </div>
       <div className="mt-10">
-        <FormJuridique data={pdp} />
+        <SecteurProjet data={pdp} />
       </div>
     </div>
   )
