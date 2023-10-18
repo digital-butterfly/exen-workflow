@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 const AssociesPage = async () => {
   const { associes } = await getAssocies()
+  console.log(associes)
   return (
     <div>
       <div className="mt-10 flex justify-between">
@@ -17,60 +18,60 @@ const AssociesPage = async () => {
           <thead className="text-xs uppercase text-gray-700">
             <tr className="text-base">
               <th scope="col" className="px-6 py-3">
-                ID
+                N° Marché
               </th>
 
               <th scope="col" className="px-6 py-3">
-                Nom
+                Maitre d&apos;Ouvrage
               </th>
 
               <th scope="col" className="px-6 py-3">
-                Prenom
+                Objet du Marché
               </th>
 
               <th scope="col" className="px-6 py-3">
-                CIN
+                Appellation
               </th>
 
               <th scope="col" className="px-6 py-3">
-                Telephone
+                Date de début
               </th>
 
               <th scope="col" className="px-6 py-3">
-                E-mail
+                Date de fin
               </th>
             </tr>
           </thead>
+
           <tbody>
-            {associes?.map(e => (
-              <tr key={e.id} className="border-b bg-white">
-                <th
-                  scope="row"
-                  className="whitespace-nowrap px-6 py-4 font-medium text-gray-900"
-                >
-                  {e.id}
-                </th>
-
-                <td className="px-6 py-4">{e.nom}</td>
-
-                <td className="px-6 py-4">{e.prenom}</td>
-
-                <td className="px-6 py-4">{e.cin}</td>
-
-                <td className="px-6 py-4">{e.tel}</td>
-
-                <td className="px-6 py-4">{e.email}</td>
-
-                <td className="px-6 py-4">
-                  <Link
-                    href={`/admin/associes/update/${e.id}`}
-                    className="rounded-lg bg-sky-200 p-2"
-                  >
-                    Voir Info
-                  </Link>
-                </td>
-              </tr>
-            ))}
+            {associes.map(associe => {
+              const dateDebut = new Date(associe.date_debut)
+              const delai = associe.delai
+              const dateFin = new Date(
+                dateDebut.getTime() + delai * 24 * 60 * 60 * 1000,
+              )
+              return (
+                <tr key={associe.id}>
+                  <td className="border-t px-6 py-4">{associe.num_marche}</td>
+                  <td className="border-t px-6 py-4">
+                    {associe.organisme}-{associe.region}
+                  </td>
+                  <td className="border-t px-6 py-4">{associe.objet_marche}</td>
+                  <td className="border-t px-6 py-4">{associe.appellation}</td>
+                  <td className="border-t px-6 py-4">
+                    {dateDebut.toLocaleDateString()}
+                  </td>
+                  <td className="border-t px-6 py-4">
+                    {dateFin.toLocaleDateString()}
+                  </td>
+                  <td className="border-t px-6 py-4">
+                    <Link href={`/admin/associes/update/${associe.id}`}>
+                      Voir plus
+                    </Link>
+                  </td>
+                </tr>
+              )
+            })}
           </tbody>
         </table>
       </div>

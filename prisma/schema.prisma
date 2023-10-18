@@ -31,13 +31,15 @@ model Associe {
   id        Int      @id @default(autoincrement())
   createdAt DateTime @default(now())
 
-  nom      String
-  prenom   String
-  cin      String @unique
-  tel      String
-  email    String @unique
-  password String
-  PDP      Pdp[]  @relation("AssocieToPDP")
+  num_marche   String   @unique
+  organisme    String
+  region       String
+  objet_marche String
+  appellation  String
+  delai        Int
+  date_debut   DateTime
+
+  PDP Pdp[] @relation("AssocieToPDP")
 }
 
 model Approbateur {

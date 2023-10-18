@@ -19,12 +19,13 @@ CREATE TABLE "Admin" (
 CREATE TABLE "Associe" (
     "id" SERIAL NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "nom" TEXT NOT NULL,
-    "prenom" TEXT NOT NULL,
-    "cin" TEXT NOT NULL,
-    "tel" TEXT NOT NULL,
-    "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
+    "num_marche" TEXT NOT NULL,
+    "organisme" TEXT NOT NULL,
+    "region" TEXT NOT NULL,
+    "objet_marche" TEXT NOT NULL,
+    "appellation" TEXT NOT NULL,
+    "delai" INTEGER NOT NULL,
+    "date_debut" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Associe_pkey" PRIMARY KEY ("id")
 );
@@ -94,10 +95,7 @@ CREATE UNIQUE INDEX "Admin_cin_key" ON "Admin"("cin");
 CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Associe_cin_key" ON "Associe"("cin");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Associe_email_key" ON "Associe"("email");
+CREATE UNIQUE INDEX "Associe_num_marche_key" ON "Associe"("num_marche");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Approbateur_cin_key" ON "Approbateur"("cin");

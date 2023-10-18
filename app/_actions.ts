@@ -193,11 +193,10 @@ export async function refusePdpAction(
 
 // associe
 export async function createAssocieAction(associe: any) {
-  // encrypt password
-  associe.password = await bcryptjs.hash(associe.password, 10)
   const test = await createAssocie(associe)
 
   revalidatePath('/admin/associes')
+  return test
 }
 
 export async function deleteAssocieAction(id: any) {
@@ -208,10 +207,6 @@ export async function deleteAssocieAction(id: any) {
 }
 
 export async function updateAssocieAction(id: any, associe: any) {
-  if (associe.password) {
-    // encrypt password
-    associe.password = await bcryptjs.hash(associe.password, 10)
-  }
   await updateAssocie(id, associe)
 
   revalidatePath(`/admin/associes/${id}`)

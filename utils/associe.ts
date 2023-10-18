@@ -62,15 +62,15 @@ export async function getAssociePdpsByEmail(email: string) {
 }
 
 export async function createAssocie(data: any) {
-  try {
-    const newAssocie = await prisma.associe.create({
-      data,
-    })
-    console.log(newAssocie)
-    return { newAssocie }
-  } catch (error) {
-    console.log(error)
-  }
+  // formate date
+  data.date_debut = new Date(data.date_debut)
+  const newAssocie = await prisma.associe.create({
+    data: {
+      ...data,
+      delai: parseInt(data.delai),
+    },
+  })
+  return { newAssocie }
 }
 
 export async function updateAssocie(id: any, data: any) {

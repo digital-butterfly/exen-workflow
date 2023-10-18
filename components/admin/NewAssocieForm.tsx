@@ -6,12 +6,13 @@ import Swal from 'sweetalert2'
 
 const NewAssocieForm = () => {
   const [formData, setFormData] = useState({
-    nom: '',
-    prenom: '',
-    cin: '',
-    tel: '',
-    email: '',
-    password: '',
+    num_marche: '',
+    organisme: '',
+    region: '',
+    objet_marche: '',
+    appellation: '',
+    delai: '',
+    date_debut: '',
   })
 
   const handleChange = (e: any) => {
@@ -20,25 +21,30 @@ const NewAssocieForm = () => {
   }
 
   const action = async (data: FormData) => {
-    try {
-      await createAssocieAction(formData)
-    } catch (error) {
-      console.log(error)
-    }
-
-    Swal.fire({
-      icon: 'success',
-      title: 'Succès',
-      text: 'Associe créé avec succès',
-    })
+    await createAssocieAction(formData)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Projet créé avec succès',
+        })
+      })
+      .catch(error => {
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: 'Une erreur est survenue',
+        })
+      })
 
     setFormData({
-      nom: '',
-      prenom: '',
-      cin: '',
-      tel: '',
-      email: '',
-      password: '',
+      num_marche: '',
+      organisme: '',
+      region: '',
+      objet_marche: '',
+      appellation: '',
+      delai: '',
+      date_debut: '',
     })
   }
 
@@ -46,79 +52,92 @@ const NewAssocieForm = () => {
     <form action={action} className="mt-6">
       <div className="grid grid-cols-3 gap-6">
         <div className="flex flex-col">
-          <label>Nom</label>
+          <label>N° de Marché</label>
           <input
             className="mt-2 border p-2"
             type="text"
-            name="nom"
+            name="num_marche"
             onChange={handleChange}
-            value={formData.nom}
-            placeholder="Nom d'Associe"
+            value={formData.num_marche}
+            placeholder="Numéro de Marché"
             required
           />
         </div>
 
         <div className="flex flex-col">
-          <label>Prenom</label>
+          <label>Organism</label>
           <input
             className="mt-2 border p-2"
             type="text"
-            name="prenom"
+            name="organisme"
             onChange={handleChange}
-            value={formData.prenom}
-            placeholder="Prenom d'Associe"
+            value={formData.organisme}
+            placeholder="Organism de projet"
             required
           />
         </div>
 
         <div className="flex flex-col">
-          <label>CIN</label>
+          <label>Region</label>
           <input
             className="mt-2 border p-2"
             type="text"
-            name="cin"
+            name="region"
             onChange={handleChange}
-            value={formData.cin}
-            placeholder="CIN d'Associe"
+            value={formData.region}
+            placeholder="Region de projet"
             required
           />
         </div>
 
         <div className="flex flex-col">
-          <label>Telephone</label>
+          <label>Objet de Marché</label>
           <input
             className="mt-2 border p-2"
-            type="tel"
-            name="tel"
+            type="text"
+            name="objet_marche"
             onChange={handleChange}
-            value={formData.tel}
-            placeholder="Telephone d'Associe"
+            value={formData.objet_marche}
+            placeholder="Objet de Marché"
             required
           />
         </div>
 
         <div className="flex flex-col">
-          <label>E-mail</label>
+          <label>Appellation</label>
           <input
             className="mt-2 border p-2"
-            type="email"
-            name="email"
+            type="text"
+            name="appellation"
             onChange={handleChange}
-            value={formData.email}
-            placeholder="E-mail d'Associe"
+            value={formData.appellation}
+            placeholder="Appellation du projet"
             required
           />
         </div>
 
         <div className="flex flex-col">
-          <label>Mot de passe</label>
+          <label>Délai de Marché</label>
           <input
             className="mt-2 border p-2"
-            type="password"
-            name="password"
+            type="text"
+            name="delai"
             onChange={handleChange}
-            value={formData.password}
-            placeholder="Mot de passe d'Associe"
+            value={formData.delai}
+            placeholder="Délai de Marché"
+            required
+          />
+        </div>
+
+        <div className="flex flex-col">
+          <label>Date de début</label>
+          <input
+            className="mt-2 border p-2"
+            type="date"
+            name="date_debut"
+            onChange={handleChange}
+            value={formData.date_debut}
+            placeholder="Date de début"
             required
           />
         </div>
