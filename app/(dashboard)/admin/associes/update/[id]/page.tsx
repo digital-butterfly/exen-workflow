@@ -25,7 +25,7 @@ const UpdateAssociePage = async ({ params }: any) => {
         <UpdateAssocieForm associe={associe} />
       </div>
 
-      <h1 className="mb-6 mt-10 text-2xl">List des pdp</h1>
+      <h1 className="mb-6 mt-24 text-2xl">List des pdp</h1>
       {pdps.PDP.length > 0 ? (
         <PdpTable pdp={pdps.PDP} path="admin/pdp/update" />
       ) : (

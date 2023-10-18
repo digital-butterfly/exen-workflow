@@ -2,8 +2,6 @@
 
 ## TODO
 
-1. show pdp in form of table in admin/projet/update/:id
-
 1. replace associe by projet
 
 1. replace "attestation de stage / travail" by "Attestation de stage / travail /
@@ -71,3 +69,5 @@
 1. show only the pdp created by the user in /associe
 
 1. add secteur travail dropdown in edit pdp
+
+1. show pdp in form of table in admin/projet/update/:id
