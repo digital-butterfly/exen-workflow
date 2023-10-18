@@ -2,11 +2,20 @@
 
 ## TODO
 
-1. show more info in /admin
+1. show pdp in form of table in admin/projet/update/:id
 
-1. add dropdowns to create pdp
+1. replace associe by projet
 
-1. show only the pdp created by the user in /associe
+1. replace "attestation de stage / travail" by "Attestation de stage / travail /
+   diplome"
+
+1. replace form juridique with "chachat al Mokawil"
+
+1. Add refuse message to approbateur's page
+
+1. find a way to extract the data to google sheets
+
+1. find a way to store data from google sheets to the database
 
 1. restyle the app
 
@@ -54,3 +63,11 @@
      associe see his pdp only
 
    - add state to table cols
+
+1. show more info in /admin
+
+1. add dropdowns to create pdp
+
+1. show only the pdp created by the user in /associe
+
+1. add secteur travail dropdown in edit pdp

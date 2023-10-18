@@ -14,7 +14,7 @@ import { redirect } from 'next/navigation'
 
 const links = [
   { name: 'PDP', href: '/admin/pdp', icon: faUser },
-  { name: 'Associes', href: '/admin/associes', icon: faUserTie },
+  { name: 'Projets', href: '/admin/associes', icon: faUserTie },
   { name: 'Approbateurs', href: '/admin/approbateurs', icon: faUserShield },
 ]
 

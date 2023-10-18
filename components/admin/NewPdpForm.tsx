@@ -7,6 +7,8 @@ import {
   formJuridiques,
   provinces,
   regions,
+  secteurs,
+  secteursGlobal,
 } from '@/utils/formOptionsInfo'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
@@ -36,6 +38,7 @@ const initialFormData = {
 
 const NewPdpForm = ({ id, role }: any) => {
   const [formData, setFormData] = useState(initialFormData)
+  const [secteurGlobal, setSecteurGlobal] = useState('Agriculture')
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -47,7 +50,12 @@ const NewPdpForm = ({ id, role }: any) => {
     try {
       await createPdpAction(id, formData, role)
     } catch (error) {
-      console.log(error)
+      Swal.fire({
+        title: 'Error!',
+        text: 'Une erreur est survenue lors de la création du porteur de projet',
+        icon: 'error',
+        confirmButtonText: 'OK',
+      })
     }
 
     Swal.fire({
@@ -293,7 +301,7 @@ const NewPdpForm = ({ id, role }: any) => {
 
         <hr className="mx-auto mt-6 h-1 w-48 rounded border-0 bg-gray-100 md:my-10" />
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           <div className="flex flex-col">
             <label>Intitulé projet</label>
             <input
@@ -307,16 +315,41 @@ const NewPdpForm = ({ id, role }: any) => {
             />
           </div>
           <div className="flex flex-col">
-            <label>Secteur du projet</label>
-            <input
+            <label>Secteur de projet</label>
+            <select
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Secteur du projet"
+              value={secteurGlobal}
+              onChange={e => setSecteurGlobal(e.target.value)}
+            >
+              {secteursGlobal?.map(e => (
+                <option key={e} value={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label>Secteur du projet</label>
+            <select
+              name="secteur_projet"
+              className="mt-2 border p-2"
+              required
               onChange={handleChange}
               value={formData.secteur_projet}
-              name="secteur_projet"
-              required
-            />
+            >
+              <option value="" disabled>
+                -- choisir secteur --
+              </option>
+              {secteurs[
+                secteurGlobal
+                  .toLowerCase()
+                  .replace(/\s/g, '') as keyof typeof secteurs
+              ].map(secteur => (
+                <option key={secteur} value={secteur}>
+                  {secteur}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
         <button

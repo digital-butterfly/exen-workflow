@@ -7,10 +7,12 @@ import {
   formJuridiques,
   provinces,
   regions,
+  secteurs,
+  secteursGlobal,
 } from '@/utils/formOptionsInfo'
-import { create } from 'domain'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
+import findSecteur from '@/utils/findSecteurGlobalBySecteurProjet'
 
 const UpdatePdpForm = ({ pdp, createdBy }: any) => {
   const [pdpState, setPdpState] = useState({
@@ -20,7 +22,12 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
       'fr-FR',
     ),
   })
-  // console.log(pdpState)
+  // get the secteurGlobal from the pdp.secteur_projet
+
+  const [secteurGlobal, setSecteurGlobal] = useState(
+    findSecteur(pdp.secteur_projet),
+  )
+  console.log(secteurGlobal)
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -31,8 +38,12 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
     // call a server action to create a todo
     try {
       await updatePdpAction(pdpState.id, pdpState)
-    } catch (error) {
-      console.log(error)
+    } catch (error: any) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Une erreur est survenue',
+        text: error.message,
+      })
     }
     // reset the form
     setPdpState({ ...pdpState })
@@ -285,7 +296,7 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
 
         <hr className="mx-auto mt-6 h-1 w-48 rounded border-0 bg-gray-100 md:my-10" />
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-3 gap-6">
           <div className="flex flex-col">
             <label className="font-semibold">Intitulé projet</label>
             <input
@@ -299,16 +310,41 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
             />
           </div>
           <div className="flex flex-col">
-            <label className="font-semibold">Secteur du projet</label>
-            <input
+            <label className="font-semibold">Secteur de projet</label>
+            <select
               className="mt-2 border p-2"
-              type="text"
-              placeholder="Secteur du projet"
+              value={secteurGlobal}
+              onChange={e => setSecteurGlobal(e.target.value)}
+            >
+              {secteursGlobal?.map(e => (
+                <option key={e} value={e}>
+                  {e}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="flex flex-col">
+            <label className="font-semibold">Secteur du projet</label>
+            <select
+              name="secteur_projet"
+              className="mt-2 border p-2"
+              required
               onChange={handleChange}
               value={pdpState.secteur_projet}
-              name="secteur_projet"
-              required
-            />
+            >
+              <option value="" disabled>
+                -- choisir secteur --
+              </option>
+              {secteurs[
+                secteurGlobal
+                  ?.toLowerCase()
+                  .replace(/\s/g, '') as keyof typeof secteurs
+              ].map(secteur => (
+                <option key={secteur} value={secteur}>
+                  {secteur}
+                </option>
+              ))}
+            </select>
           </div>
         </div>
 
