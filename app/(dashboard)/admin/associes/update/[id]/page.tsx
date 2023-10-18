@@ -1,3 +1,4 @@
+import PdpTable from '@/components/PdpTable'
 import DeleteAssocieButton from '@/components/admin/DeleteAssocieButton'
 import UpdateAssocieForm from '@/components/admin/UpdateAssociForm'
 import { getAssocieById, getAssociePdps } from '@/utils/associe'
@@ -21,18 +22,8 @@ const UpdateAssociePage = async ({ params }: any) => {
         <UpdateAssocieForm associe={associe} />
       </div>
 
-      <h1 className="mt-10 text-2xl">List des pdp</h1>
-      {pdps?.PDP.length > 0 ? (
-        pdps.PDP.map((e: any) => (
-          <Link href={`/admin/pdp/update/${e.id}`} key={e.id}>
-            <h1 className="p-2 pb-0 hover:underline">
-              {e.nom} {e.prenom}
-            </h1>
-          </Link>
-        ))
-      ) : (
-        <h1 className="mt-2">pas de pdp</h1>
-      )}
+      <h1 className="mb-6 mt-10 text-2xl">List des pdp</h1>
+      <PdpTable pdp={pdps.PDP} path="admin/pdp/update" />
     </div>
   )
 }
