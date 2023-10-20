@@ -8,15 +8,13 @@ import State from '@/components/admin/charts/State'
 import { getAssocieById, getAssociePdps } from '@/utils/associe'
 
 const UpdateAssociePage = async ({ params }: any) => {
-  const { associe } = await getAssocieById(params.id)
-  const { pdps } = await getAssociePdps(params.id)
+  const { associe }: any = await getAssocieById(params.id)
+  const { pdps }: any = await getAssociePdps(params.id)
 
   return (
     <div>
       <div className="mt-10 flex items-center justify-between ">
-        <h1 className="text-3xl">
-          Modifier Projet ({associe.nom} {associe.prenom})
-        </h1>
+        <h1 className="text-3xl">Modifier Projet</h1>
 
         <DeleteAssocieButton id={associe.id} />
       </div>

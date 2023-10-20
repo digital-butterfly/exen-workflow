@@ -5,6 +5,7 @@ import UserButton from '@/components/UserButton'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
 import {
+  faDiamond,
   faUser,
   faUserShield,
   faUserTie,
@@ -52,6 +53,18 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         </div>
         <div className="pt-10">
           <ul className="px-4">
+            {session.user.name == 'Super Admin' && (
+              <Link href={'/admin/admins'}>
+                <li className="my-4 p-2 text-xl transition-all hover:bg-gray-50">
+                  <FontAwesomeIcon
+                    className="mr-5"
+                    icon={faDiamond}
+                    style={{ width: '1.5rem', display: 'inline' }}
+                  />
+                  Admins
+                </li>
+              </Link>
+            )}
             {links.map(link => (
               <Link key={link.name} href={link.href}>
                 <li className="my-4 p-2 text-xl transition-all hover:bg-gray-50">

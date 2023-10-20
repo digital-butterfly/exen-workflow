@@ -1,11 +1,39 @@
 'use client'
 
 import { updateAssocieAction } from '@/app/_actions'
+import { TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const UpdateAssocieForm = ({ associe }: any) => {
   const [associeState, setAssocieState] = useState(associe)
+
+  const formInputs = [
+    { label: 'N° de Marché', name: 'num_marche', type: 'text', required: true },
+    { label: 'Organism', name: 'organisme', type: 'text', required: true },
+    { label: 'Zone', name: 'region', type: 'text', required: true },
+    {
+      label: 'Objet de Marché',
+      name: 'objet_marche',
+      type: 'text',
+      required: true,
+    },
+    { label: 'Appellation', name: 'appellation', type: 'text', required: true },
+    {
+      label: 'Délai de Marché (jours)',
+      name: 'delai',
+      type: 'text',
+      required: true,
+    },
+    {
+      label: 'Date de début',
+      name: 'date_debut',
+      type: 'text',
+      required: true,
+      value: new Date(associeState.date_debut).toLocaleDateString(),
+    },
+    { label: 'Email', name: 'email', type: 'email', required: true },
+  ]
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -13,19 +41,25 @@ const UpdateAssocieForm = ({ associe }: any) => {
   }
 
   async function action(data: FormData) {
-    try {
-      await updateAssocieAction(associeState.id, associeState)
-    } catch (error) {
-      console.log(error)
-    }
+    await updateAssocieAction(associeState.id, associeState)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Projet modifier avec succès',
+        })
+        setAssocieState(associeState)
+      })
+      .catch(error => {
+        // get the last line of the error message
+        const errorMessage = error.message.split('\n').pop()
 
-    setAssocieState({ ...associeState })
-    Swal.fire({
-      icon: 'success',
-      title: 'Associe modifié',
-      showConfirmButton: false,
-      timer: 1500,
-    })
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: `Erreur survenue: ${errorMessage}`,
+        })
+      })
   }
 
   // reset password
@@ -60,65 +94,18 @@ const UpdateAssocieForm = ({ associe }: any) => {
   return (
     <form action={action}>
       <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col">
-          <label>Nom</label>
-          <input
-            type="text"
-            className="mt-2 border p-2"
-            placeholder="Nom d'Associe"
-            onChange={handleChange}
-            value={associeState?.nom}
-            name="nom"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Prenom</label>
-          <input
-            type="text"
-            className="mt-2 border p-2"
-            placeholder="Prenom d'Associe"
-            onChange={handleChange}
-            value={associeState?.prenom}
-            name="prenom"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>CIN</label>
-          <input
-            type="text"
-            className="mt-2 border p-2"
-            placeholder="CIN d'Associe"
-            onChange={handleChange}
-            value={associeState?.cin}
-            name="cin"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Telephone</label>
-          <input
-            type="text"
-            className="mt-2 border p-2"
-            placeholder="Telephone d'Associe"
-            onChange={handleChange}
-            value={associeState?.tel}
-            name="telephone"
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>E-mail</label>
-          <input
-            type="email"
-            className="mt-2 border p-2"
-            placeholder="E-mail d'Associe"
-            onChange={handleChange}
-            value={associeState?.email}
-            name="email"
-          />
-        </div>
+        {formInputs.map((input, index) => (
+          <div key={index} className="flex flex-col">
+            <label className="mb-2">{input.label}</label>
+            <TextInput
+              type={input.type}
+              onChange={handleChange}
+              value={input.value ? input.value : associeState[input.name]}
+              name={input.name}
+              required={input.required}
+            />
+          </div>
+        ))}
       </div>
 
       <button

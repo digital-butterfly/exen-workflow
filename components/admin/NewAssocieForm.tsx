@@ -1,10 +1,33 @@
 'use client'
 
 import { createAssocieAction } from '@/app/_actions'
+import { TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const NewAssocieForm = () => {
+  const formInputs = [
+    { label: 'N° de Marché', name: 'num_marche', type: 'text', required: true },
+    { label: 'Organism', name: 'organisme', type: 'text', required: true },
+    { label: 'Zone', name: 'region', type: 'text', required: true },
+    {
+      label: 'Objet de Marché',
+      name: 'objet_marche',
+      type: 'text',
+      required: true,
+    },
+    { label: 'Appellation', name: 'appellation', type: 'text', required: true },
+    { label: 'Délai de Marché', name: 'delai', type: 'text', required: true },
+    {
+      label: 'Date de début',
+      name: 'date_debut',
+      type: 'date',
+      required: true,
+    },
+    { label: 'Email', name: 'email', type: 'email', required: true },
+    { label: 'Password', name: 'password', type: 'password', required: true },
+  ]
+
   const [formData, setFormData] = useState({
     num_marche: '',
     organisme: '',
@@ -13,6 +36,8 @@ const NewAssocieForm = () => {
     appellation: '',
     delai: '',
     date_debut: '',
+    email: '',
+    password: '',
   })
 
   const handleChange = (e: any) => {
@@ -28,123 +53,49 @@ const NewAssocieForm = () => {
           title: 'Succès',
           text: 'Projet créé avec succès',
         })
+        setFormData({
+          num_marche: '',
+          organisme: '',
+          region: '',
+          objet_marche: '',
+          appellation: '',
+          delai: '',
+          date_debut: '',
+          email: '',
+          password: '',
+        })
       })
       .catch(error => {
+        // get the last line of the error message
+        const errorMessage = error.message.split('\n').pop()
+
         Swal.fire({
           icon: 'error',
           title: 'Erreur',
-          text: 'Une erreur est survenue',
+          text: `Erreur survenue: ${errorMessage}`,
         })
       })
-
-    setFormData({
-      num_marche: '',
-      organisme: '',
-      region: '',
-      objet_marche: '',
-      appellation: '',
-      delai: '',
-      date_debut: '',
-    })
   }
 
   return (
     <form action={action} className="mt-6">
       <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col">
-          <label>N° de Marché</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="num_marche"
-            onChange={handleChange}
-            value={formData.num_marche}
-            placeholder="Numéro de Marché"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Organism</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="organisme"
-            onChange={handleChange}
-            value={formData.organisme}
-            placeholder="Organism de projet"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Region</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="region"
-            onChange={handleChange}
-            value={formData.region}
-            placeholder="Region de projet"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Objet de Marché</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="objet_marche"
-            onChange={handleChange}
-            value={formData.objet_marche}
-            placeholder="Objet de Marché"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Appellation</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="appellation"
-            onChange={handleChange}
-            value={formData.appellation}
-            placeholder="Appellation du projet"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Délai de Marché</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="delai"
-            onChange={handleChange}
-            value={formData.delai}
-            placeholder="Délai de Marché"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Date de début</label>
-          <input
-            className="mt-2 border p-2"
-            type="date"
-            name="date_debut"
-            onChange={handleChange}
-            value={formData.date_debut}
-            placeholder="Date de début"
-            required
-          />
-        </div>
+        {formInputs.map((input, index) => (
+          <div className="flex flex-col" key={index}>
+            <label className="mb-2">{input.label}</label>
+            <TextInput
+              type={input.type}
+              name={input.name}
+              onChange={handleChange}
+              value={formData[input.name as keyof typeof formData]}
+              placeholder={input.label}
+              required={input.required}
+            />
+          </div>
+        ))}
       </div>
-
       <button
-        className="mt-6 rounded-xl bg-sky-400 px-4 py-2 text-white hover:bg-sky-500"
+        className="float-right mt-6 rounded-xl bg-sky-400 px-4 py-2 text-white hover:bg-sky-500"
         type="submit"
       >
         Créer

@@ -24,7 +24,6 @@ model Admin {
   tel      String
   email    String @unique
   password String
-  PDP      Pdp[]  @relation("AdminToPDP")
 }
 
 model Associe {
@@ -38,6 +37,8 @@ model Associe {
   appellation  String
   delai        Int
   date_debut   DateTime
+  email        String   @unique
+  password     String
 
   PDP Pdp[] @relation("AssocieToPDP")
 }
@@ -97,11 +98,8 @@ model Pdp {
   doc_bp                        String?
   doc_fiche_de_presence         String?
 
-  AdminId Int?
-  Admin   Admin? @relation("AdminToPDP", fields: [AdminId], references: [id])
-
-  AssocieId Int?
-  Associe   Associe? @relation("AssocieToPDP", fields: [AssocieId], references: [id])
+  AssocieId Int
+  Associe   Associe @relation("AssocieToPDP", fields: [AssocieId], references: [id])
 
   ApprobateurId Int?
   Approbateur   Approbateur? @relation("ApprobateurToPDP", fields: [ApprobateurId], references: [id])

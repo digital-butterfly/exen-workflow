@@ -3,8 +3,7 @@ import { getAssocies } from '@/utils/associe'
 import Link from 'next/link'
 
 const AssociesPage = async () => {
-  const { associes } = await getAssocies()
-  console.log(associes)
+  const { associes }: any = await getAssocies()
   return (
     <div>
       <div className="mt-10 flex justify-between">
@@ -26,10 +25,6 @@ const AssociesPage = async () => {
               </th>
 
               <th scope="col" className="px-6 py-3">
-                Objet du Marché
-              </th>
-
-              <th scope="col" className="px-6 py-3">
                 Appellation
               </th>
 
@@ -44,7 +39,7 @@ const AssociesPage = async () => {
           </thead>
 
           <tbody>
-            {associes.map(associe => {
+            {associes.map((associe: any) => {
               const dateDebut = new Date(associe.date_debut)
               const delai = associe.delai
               const dateFin = new Date(
@@ -56,7 +51,6 @@ const AssociesPage = async () => {
                   <td className="border-t px-6 py-4">
                     {associe.organisme}-{associe.region}
                   </td>
-                  <td className="border-t px-6 py-4">{associe.objet_marche}</td>
                   <td className="border-t px-6 py-4">{associe.appellation}</td>
                   <td className="border-t px-6 py-4">
                     {dateDebut.toLocaleDateString()}
@@ -65,7 +59,10 @@ const AssociesPage = async () => {
                     {dateFin.toLocaleDateString()}
                   </td>
                   <td className="border-t px-6 py-4">
-                    <Link href={`/admin/associes/update/${associe.id}`}>
+                    <Link
+                      href={`/admin/associes/update/${associe.id}`}
+                      className="rounded-lg bg-sky-200 p-2"
+                    >
                       Voir plus
                     </Link>
                   </td>

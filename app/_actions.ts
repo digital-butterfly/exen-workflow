@@ -18,7 +18,7 @@ import { redirect } from 'next/navigation'
 import { join } from 'path'
 import bcryptjs from 'bcryptjs'
 import { createAssocie, deleteAssocie, updateAssocie } from '@/utils/associe'
-import { resetAdminPassword, updateAdmin } from '@/utils/admin'
+import { createAdmin, resetAdminPassword, updateAdmin } from '@/utils/admin'
 
 // pdp
 export async function createPdpAction(id: any, pdp: any, role: any) {
@@ -193,6 +193,11 @@ export async function refusePdpAction(
 
 // associe
 export async function createAssocieAction(associe: any) {
+  // format data
+  associe.delai = parseInt(associe.delai)
+  associe.date_debut = new Date(associe.date_debut)
+  // encrypt password
+  associe.password = await bcryptjs.hash(associe.password, 10)
   const test = await createAssocie(associe)
 
   revalidatePath('/admin/associes')
@@ -207,12 +212,31 @@ export async function deleteAssocieAction(id: any) {
 }
 
 export async function updateAssocieAction(id: any, associe: any) {
-  await updateAssocie(id, associe)
+  // format data
+  if (associe.delai) {
+    associe.delai = parseInt(associe.delai)
+  }
+  if (associe.date_debut) {
+    associe.date_debut = new Date(associe.date_debut)
+  }
+  // encrypt password
+  if (associe.password) {
+    associe.password = await bcryptjs.hash(associe.password, 10)
+  }
 
-  revalidatePath(`/admin/associes/${id}`)
+  const newAssocie = await updateAssocie(id, associe)
+
+  // revalidatePath(`/admin/associes/${id}`)
+  return newAssocie
 }
 
 // admin
+
+export async function createAdminAction(admin: any) {
+  const newAdmin = await createAdmin(admin)
+  revalidatePath('/admin/admins')
+  return newAdmin
+}
 
 export async function updateAdminAction(id: any, admin: any) {
   await updateAdmin(id, admin)

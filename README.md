@@ -2,7 +2,10 @@
 
 ## TODO
 
-1. replace associe by projet
+1. replace associe by projet in db and functions (you can keep the routes and
+   files for later)
+
+   - replace user button in associe user
 
 1. replace "attestation de stage / travail" by "Attestation de stage / travail /
    diplome"

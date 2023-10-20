@@ -26,6 +26,8 @@ CREATE TABLE "Associe" (
     "appellation" TEXT NOT NULL,
     "delai" INTEGER NOT NULL,
     "date_debut" TIMESTAMP(3) NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL,
 
     CONSTRAINT "Associe_pkey" PRIMARY KEY ("id")
 );
@@ -81,8 +83,7 @@ CREATE TABLE "Pdp" (
     "doc_attestation_stage_travail" TEXT,
     "doc_bp" TEXT,
     "doc_fiche_de_presence" TEXT,
-    "AdminId" INTEGER,
-    "AssocieId" INTEGER,
+    "AssocieId" INTEGER NOT NULL,
     "ApprobateurId" INTEGER,
 
     CONSTRAINT "Pdp_pkey" PRIMARY KEY ("id")
@@ -98,16 +99,16 @@ CREATE UNIQUE INDEX "Admin_email_key" ON "Admin"("email");
 CREATE UNIQUE INDEX "Associe_num_marche_key" ON "Associe"("num_marche");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Associe_email_key" ON "Associe"("email");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "Approbateur_cin_key" ON "Approbateur"("cin");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Approbateur_email_key" ON "Approbateur"("email");
 
 -- AddForeignKey
-ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_AdminId_fkey" FOREIGN KEY ("AdminId") REFERENCES "Admin"("id") ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_AssocieId_fkey" FOREIGN KEY ("AssocieId") REFERENCES "Associe"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_AssocieId_fkey" FOREIGN KEY ("AssocieId") REFERENCES "Associe"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Pdp" ADD CONSTRAINT "Pdp_ApprobateurId_fkey" FOREIGN KEY ("ApprobateurId") REFERENCES "Approbateur"("id") ON DELETE SET NULL ON UPDATE CASCADE;
