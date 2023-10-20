@@ -1,15 +1,41 @@
 'use client'
 
 import { createAssocieAction } from '@/app/_actions'
+import { TextInput } from 'flowbite-react'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const NewAssocieForm = () => {
+  const formInputs = [
+    { label: 'N° de Marché', name: 'num_marche', type: 'text', required: true },
+    { label: 'Organism', name: 'organisme', type: 'text', required: true },
+    { label: 'Zone', name: 'region', type: 'text', required: true },
+    {
+      label: 'Objet de Marché',
+      name: 'objet_marche',
+      type: 'text',
+      required: true,
+    },
+    { label: 'Appellation', name: 'appellation', type: 'text', required: true },
+    { label: 'Délai de Marché', name: 'delai', type: 'text', required: true },
+    {
+      label: 'Date de début',
+      name: 'date_debut',
+      type: 'date',
+      required: true,
+    },
+    { label: 'Email', name: 'email', type: 'email', required: true },
+    { label: 'Password', name: 'password', type: 'password', required: true },
+  ]
+
   const [formData, setFormData] = useState({
-    nom: '',
-    prenom: '',
-    cin: '',
-    tel: '',
+    num_marche: '',
+    organisme: '',
+    region: '',
+    objet_marche: '',
+    appellation: '',
+    delai: '',
+    date_debut: '',
     email: '',
     password: '',
   })
@@ -20,112 +46,56 @@ const NewAssocieForm = () => {
   }
 
   const action = async (data: FormData) => {
-    try {
-      await createAssocieAction(formData)
-    } catch (error) {
-      console.log(error)
-    }
+    await createAssocieAction(formData)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Projet créé avec succès',
+        })
+        setFormData({
+          num_marche: '',
+          organisme: '',
+          region: '',
+          objet_marche: '',
+          appellation: '',
+          delai: '',
+          date_debut: '',
+          email: '',
+          password: '',
+        })
+      })
+      .catch(error => {
+        // get the last line of the error message
+        const errorMessage = error.message.split('\n').pop()
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Succès',
-      text: 'Associe créé avec succès',
-    })
-
-    setFormData({
-      nom: '',
-      prenom: '',
-      cin: '',
-      tel: '',
-      email: '',
-      password: '',
-    })
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: `Erreur survenue: ${errorMessage}`,
+        })
+      })
   }
 
   return (
     <form action={action} className="mt-6">
       <div className="grid grid-cols-3 gap-6">
-        <div className="flex flex-col">
-          <label>Nom</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="nom"
-            onChange={handleChange}
-            value={formData.nom}
-            placeholder="Nom d'Associe"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Prenom</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="prenom"
-            onChange={handleChange}
-            value={formData.prenom}
-            placeholder="Prenom d'Associe"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>CIN</label>
-          <input
-            className="mt-2 border p-2"
-            type="text"
-            name="cin"
-            onChange={handleChange}
-            value={formData.cin}
-            placeholder="CIN d'Associe"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Telephone</label>
-          <input
-            className="mt-2 border p-2"
-            type="tel"
-            name="tel"
-            onChange={handleChange}
-            value={formData.tel}
-            placeholder="Telephone d'Associe"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>E-mail</label>
-          <input
-            className="mt-2 border p-2"
-            type="email"
-            name="email"
-            onChange={handleChange}
-            value={formData.email}
-            placeholder="E-mail d'Associe"
-            required
-          />
-        </div>
-
-        <div className="flex flex-col">
-          <label>Mot de passe</label>
-          <input
-            className="mt-2 border p-2"
-            type="password"
-            name="password"
-            onChange={handleChange}
-            value={formData.password}
-            placeholder="Mot de passe d'Associe"
-            required
-          />
-        </div>
+        {formInputs.map((input, index) => (
+          <div className="flex flex-col" key={index}>
+            <label className="mb-2">{input.label}</label>
+            <TextInput
+              type={input.type}
+              name={input.name}
+              onChange={handleChange}
+              value={formData[input.name as keyof typeof formData]}
+              placeholder={input.label}
+              required={input.required}
+            />
+          </div>
+        ))}
       </div>
-
       <button
-        className="mt-6 rounded-xl bg-sky-400 px-4 py-2 text-white hover:bg-sky-500"
+        className="float-right mt-6 rounded-xl bg-sky-400 px-4 py-2 text-white hover:bg-sky-500"
         type="submit"
       >
         Créer

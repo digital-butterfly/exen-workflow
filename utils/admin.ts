@@ -1,5 +1,19 @@
 import { prisma } from './db'
 
+export const getAdmins = async () => {
+  const admins = await prisma.admin.findMany()
+  return admins
+}
+
+export const getAdminById = async (id: number) => {
+  const admin = await prisma.admin.findUnique({
+    where: {
+      id: id,
+    },
+  })
+  return admin
+}
+
 export const getAdminByEmail = async (email: string) => {
   const admin = await prisma.admin.findUnique({
     where: {
@@ -14,6 +28,13 @@ export const getAdmin = async () => {
     where: {
       id: 1,
     },
+  })
+  return admin
+}
+
+export const createAdmin = async (data: any) => {
+  const admin = await prisma.admin.create({
+    data,
   })
   return admin
 }

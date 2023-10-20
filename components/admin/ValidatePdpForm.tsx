@@ -75,7 +75,7 @@ const ValidatePdpForm = ({ pdp }: any) => {
     await addFiles(actionPdp.id, filesNames)
 
     // Redirect to /admin/pdp/update/[id]
-    redirect(`/admin/pdp/update/${actionPdp.id}`)
+    redirect(`/associe/pdp/update/${actionPdp.id}`)
   }
 
   return (

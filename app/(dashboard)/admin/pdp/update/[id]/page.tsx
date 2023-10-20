@@ -9,14 +9,7 @@ import Link from 'next/link'
 const PdpPageId = async ({ params }: any) => {
   const { pdp } = await getOnlyPdpById(params.id)
   const { pdp: pdpWithRelations } = await getPdpById(params.id)
-  let createdBy
-  if (pdpWithRelations?.Admin) {
-    createdBy =
-      pdpWithRelations?.Admin?.nom + ' ' + pdpWithRelations?.Admin?.prenom
-  } else if (pdpWithRelations?.Associe) {
-    createdBy =
-      pdpWithRelations?.Associe?.nom + ' ' + pdpWithRelations?.Associe?.prenom
-  }
+  let createdBy = pdpWithRelations?.Associe?.appellation
 
   return (
     <div>

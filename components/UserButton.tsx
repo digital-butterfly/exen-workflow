@@ -6,7 +6,7 @@ import Link from 'next/link'
 import SignOutButton from './SignOutButton'
 import { useState } from 'react'
 
-const UserButton = ({ token }: any) => {
+const UserButton = ({ token, appellation = null }: any) => {
   const { name, role } = token
   const [isDropdownOpen, setIsDropdownOpen] = useState(false)
   const [isUserSignedIn, setIsUserSignedIn] = useState(!!token)
@@ -29,7 +29,7 @@ const UserButton = ({ token }: any) => {
               style={{ width: '1rem' }}
             />
           </div>
-          <span>Bonjour: {name}</span>
+          <span>Bonjour: {appellation ? appellation : name}</span>
         </button>
       ) : (
         <Link href="/auth/signin" className="rounded p-2 hover:bg-sky-200">
