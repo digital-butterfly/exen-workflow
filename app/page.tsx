@@ -7,7 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 export default async function Home() {
-  const session = await getServerSession(authOptions)
+  const session: any = await getServerSession(authOptions)
   return (
     <main className="w-full">
       <NavBar token={session} />
@@ -26,7 +26,7 @@ export default async function Home() {
             <div className="flex flex-col items-start space-y-3 sm:flex-row sm:items-center sm:space-x-4 sm:space-y-0">
               {session ? (
                 <Link
-                  href={`/${session?.user.role}`}
+                  href={`/${session?.user?.role}`}
                   className="rounded-md bg-sky-400 px-8 py-4 text-center text-lg font-medium text-white transition-all hover:bg-sky-500 "
                 >
                   Commencer
@@ -50,7 +50,7 @@ export default async function Home() {
               height="617"
               className={'object-cover'}
               alt="Hero Illustration"
-              loading="eager"
+              priority={false}
             />
           </div>
         </div>
