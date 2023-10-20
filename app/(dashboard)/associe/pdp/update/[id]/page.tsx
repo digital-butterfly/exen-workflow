@@ -8,8 +8,7 @@ import Link from 'next/link'
 
 const PdpPage = async ({ params }: any) => {
   const { pdp } = await getOnlyPdpById(params.id)
-  const { pdp: pdpWithRelations } = await getPdpById(params.id)
-  console.log(pdpWithRelations)
+  const { pdp: pdpWithRelations }: any = await getPdpById(params.id)
   return (
     <div>
       {/* Go back button */}
@@ -30,7 +29,7 @@ const PdpPage = async ({ params }: any) => {
         {/* Header */}
         <div className="flex justify-between">
           <h1 className="text-3xl">
-            Pdp Info ({pdp?.nom} {pdp?.prenom}){' '}
+            Pdp Info ({pdp?.nom} {pdp?.prenom})
           </h1>
           <div className="flex gap-4">
             {pdp?.etat == 'sourcing' && (
@@ -83,7 +82,7 @@ const PdpPage = async ({ params }: any) => {
         <div>
           <UpdatePdpForm
             pdp={pdp}
-            createdBy={`${pdpWithRelations?.Associe?.nom} ${pdpWithRelations?.Associe?.prenom}`}
+            createdBy={pdpWithRelations?.Associe?.appellation}
           />
         </div>
         {pdp?.etat != 'sourcing' && (

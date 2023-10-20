@@ -33,7 +33,7 @@ const SignInForm = () => {
         router.refresh()
         setTimeout(() => {
           setMessage('Identifiants invalides')
-        }, 1500)
+        }, 2000)
       } else if (signInResponse?.status === 401) {
         setMessage('Identifiants invalides')
       } else {
@@ -124,7 +124,7 @@ const SignInForm = () => {
                   required
                 >
                   <option value="admin">Admin</option>
-                  <option value="associe">Associe</option>
+                  <option value="associe">Projet</option>
                   <option value="approbateur">Approbateur</option>
                 </select>
               </div>

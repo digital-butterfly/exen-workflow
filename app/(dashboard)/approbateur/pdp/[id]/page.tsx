@@ -33,6 +33,18 @@ const PdpInfoPage = async ({ params }: any) => {
           </h2>
         )}
       </div>
+      {/* Error Message */}
+      {pdp?.commentaire && (
+        <p className="mt-6 flex flex-col rounded-xl bg-red-100 p-4 text-xl text-red-500">
+          <span>
+            Refusé par:{' '}
+            <span className="font-semibold">
+              {pdp?.Approbateur?.nom} {pdp?.Approbateur?.prenom}
+            </span>
+          </span>
+          {pdp?.commentaire}
+        </p>
+      )}
 
       <div className="mt-16">
         <ShowPdpInfo pdp={pdp} />

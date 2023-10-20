@@ -29,7 +29,6 @@ export async function getPdpById(id: any) {
     const pdp = await prisma.pdp.findUnique({
       where: { id: parseInt(id) },
       include: {
-        Admin: true,
         Associe: true,
         Approbateur: true,
       },

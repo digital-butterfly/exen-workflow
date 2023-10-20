@@ -10,7 +10,8 @@ const PdpPage = async () => {
       <div className="mt-10 flex items-center justify-between">
         <h1 className="text-3xl">Liste des porteurs de projets</h1>
 
-        <AddButton path={'pdp/create'} />
+        {/* Add pdp button hidden */}
+        {/* <AddButton path={'pdp/create'} /> */}
       </div>
 
       <div className="relative mt-10 overflow-x-auto">
