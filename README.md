@@ -7,8 +7,6 @@
 
 1. replace form juridique with "chachat al Mokawil"
 
-1. Add refuse message to approbateur's page
-
 1. find a way to extract the data to google sheets
 
 1. find a way to store data from google sheets to the database
@@ -74,3 +72,5 @@
    files for later)
 
    - replace user button in associe user
+
+1. Add refuse message to approbateur's page

@@ -11,6 +11,28 @@ export async function getAssocies() {
   }
 }
 
+export async function getAssociesWithValidPdps() {
+  try {
+    const associes = await prisma.associe.findMany({
+      include: {
+        PDP: {
+          where: {
+            OR: [
+              { etat: 'valid' },
+              { etat: 'refused' },
+              { etat: 'tenu_commite' },
+            ],
+          },
+        },
+      },
+      orderBy: [{ id: 'asc' }],
+    })
+    return { associes }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export async function getAssocieById(id: any) {
   try {
     const associe = await prisma.associe.findUnique({
@@ -56,6 +78,28 @@ export async function getAssociePdpsByEmail(email: string) {
       },
     })
     return pdps
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+export async function getAssocieValidPdps(id: number) {
+  try {
+    const pdps = await prisma.associe.findUnique({
+      where: { id: Number(id) },
+      select: {
+        PDP: {
+          where: {
+            OR: [
+              { etat: 'valid' },
+              { etat: 'refused' },
+              { etat: 'tenu_commite' },
+            ],
+          },
+        },
+      },
+    })
+    return { pdps }
   } catch (error) {
     console.log(error)
   }
