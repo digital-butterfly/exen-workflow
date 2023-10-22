@@ -2,11 +2,6 @@
 
 ## TODO
 
-1. replace associe by projet in db and functions (you can keep the routes and
-   files for later)
-
-   - replace user button in associe user
-
 1. replace "attestation de stage / travail" by "Attestation de stage / travail /
    diplome"
 
@@ -74,3 +69,8 @@
 1. add secteur travail dropdown in edit pdp
 
 1. show pdp in form of table in admin/projet/update/:id
+
+1. replace associe by projet in db and functions (you can keep the routes and
+   files for later)
+
+   - replace user button in associe user
