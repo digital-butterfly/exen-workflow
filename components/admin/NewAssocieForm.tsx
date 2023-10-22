@@ -17,7 +17,7 @@ const NewAssocieForm = () => {
       required: true,
     },
     { label: 'Appellation', name: 'appellation', type: 'text', required: true },
-    { label: 'Délai de Marché', name: 'delai', type: 'text', required: true },
+    { label: 'Délai de Marché', name: 'delai', type: 'number', required: true },
     {
       label: 'Date de début',
       name: 'date_debut',

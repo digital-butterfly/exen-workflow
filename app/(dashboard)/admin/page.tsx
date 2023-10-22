@@ -1,5 +1,4 @@
 import FormJuridique from '@/components/admin/charts/FormJuridique'
-import PieChart from '@/components/admin/charts/PieChart'
 import SecteurProjet from '@/components/admin/charts/SecteurProjet'
 import Sexe from '@/components/admin/charts/Sexe'
 import State from '@/components/admin/charts/State'
@@ -7,10 +6,6 @@ import { prisma } from '@/utils/db'
 import { getPdp } from '@/utils/pdp'
 import {
   faUser,
-  faUserAltSlash,
-  faUserGear,
-  faUserGraduate,
-  faUserNurse,
   faUserShield,
   faUserTie,
 } from '@fortawesome/free-solid-svg-icons'
@@ -49,7 +44,7 @@ const AdminPage = async () => {
             style={{ width: '1.5rem', display: 'inline' }}
           />
           <div>
-            <h2 className="text-2xl">Associes</h2>
+            <h2 className="text-2xl">Projets</h2>
             <p className="text-4xl">{associesCount}</p>
           </div>
         </div>
