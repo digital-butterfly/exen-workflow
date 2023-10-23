@@ -3,6 +3,9 @@
 import { useState } from 'react'
 import { Pdp } from '@prisma/client'
 import Link from 'next/link'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTable } from '@fortawesome/free-solid-svg-icons'
+import ExportPdpCsv from './admin/ExportPdpCsv'
 
 interface Props {
   pdp: Pdp[]
@@ -12,7 +15,7 @@ interface Props {
 const PdpTable = ({ pdp, path }: Props) => {
   const [pdpState, setPdpState] = useState<Pdp[]>(pdp)
   const [selectedFilter, setSelectedFilter] = useState('all')
-
+  console.log(pdpState)
   const etats = {
     sourcing: 'Sourcing',
     valid: 'En cours de validation',
@@ -39,48 +42,53 @@ const PdpTable = ({ pdp, path }: Props) => {
 
   return (
     <div>
-      {/* Filter buttons */}
-      <div className="mb-6 flex gap-4">
-        <button
-          className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
-          onClick={() => handleFilter('all')}
-          style={{
-            backgroundColor: selectedFilter == 'all' ? '#f0f0f0' : '',
-          }}
-        >
-          Tous ({pdp.length})
-        </button>
-
-        <button
-          className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
-          onClick={() => handleFilter(states.valid)}
-          style={{
-            backgroundColor: selectedFilter == states.valid ? '#f0f0f0' : '',
-          }}
-        >
-          En cours de validation (
-          {pdp.filter(p => p.etat === states.valid).length})
-        </button>
-        <button
-          className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
-          onClick={() => handleFilter(states.tenu_commite)}
-          style={{
-            backgroundColor:
-              selectedFilter == states.tenu_commite ? '#f0f0f0' : '',
-          }}
-        >
-          Tenu comité ({pdp.filter(p => p.etat === states.tenu_commite).length})
-        </button>
-        <button
-          className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
-          onClick={() => handleFilter(states.refused)}
-          style={{
-            backgroundColor: selectedFilter == states.refused ? '#f0f0f0' : '',
-          }}
-        >
-          Retour pour modification (
-          {pdp.filter(p => p.etat === states.refused).length})
-        </button>
+      <div className="mb-6 flex items-center justify-between">
+        {/* Filter buttons */}
+        <div className="flex items-center justify-center gap-4">
+          <button
+            className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
+            onClick={() => handleFilter('all')}
+            style={{
+              backgroundColor: selectedFilter == 'all' ? '#f0f0f0' : '',
+            }}
+          >
+            Tous ({pdp.length})
+          </button>
+          <button
+            className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
+            onClick={() => handleFilter(states.valid)}
+            style={{
+              backgroundColor: selectedFilter == states.valid ? '#f0f0f0' : '',
+            }}
+          >
+            En cours de validation (
+            {pdp.filter(p => p.etat === states.valid).length})
+          </button>
+          <button
+            className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
+            onClick={() => handleFilter(states.tenu_commite)}
+            style={{
+              backgroundColor:
+                selectedFilter == states.tenu_commite ? '#f0f0f0' : '',
+            }}
+          >
+            Tenu comité (
+            {pdp.filter(p => p.etat === states.tenu_commite).length})
+          </button>
+          <button
+            className="rounded-full p-4 py-2 font-semibold transition-all hover:bg-black/10"
+            onClick={() => handleFilter(states.refused)}
+            style={{
+              backgroundColor:
+                selectedFilter == states.refused ? '#f0f0f0' : '',
+            }}
+          >
+            Retour pour modification (
+            {pdp.filter(p => p.etat === states.refused).length})
+          </button>
+        </div>
+        {/* Export CSV button */}
+        <ExportPdpCsv data={pdpState} />
       </div>
       {/* Table */}
       <table className="w-full text-left text-sm text-gray-500 ">
