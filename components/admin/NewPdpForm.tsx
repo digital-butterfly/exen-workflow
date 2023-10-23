@@ -37,7 +37,7 @@ const initialFormData = {
 }
 
 const NewPdpForm = ({ id, role }: any) => {
-  const [formData, setFormData] = useState(initialFormData)
+  const [formData, setFormData]: any = useState(initialFormData)
   const [secteurGlobal, setSecteurGlobal] = useState('Agriculture')
 
   const handleChange = (e: any) => {
