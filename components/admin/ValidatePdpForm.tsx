@@ -10,13 +10,14 @@ const ValidatePdpForm = ({ pdp }: any) => {
   const inputs = [
     { label: 'CIN', name: 'doc_cin' },
     { label: 'Cv', name: 'doc_cv' },
-    { label: 'Form Juridique', name: 'doc_forme_juridique' },
+    // replaced form juridique with chachat Al moukawil
+    { label: 'Chachat Al Moukawil', name: 'doc_forme_juridique' },
     { label: 'Contrat de bail', name: 'doc_contrat_de_bail' },
     { label: 'Devis', name: 'doc_devis' },
     { label: 'Attestation de RIB', name: 'doc_attestation_rib' },
-    { label: 'Diplôme', name: 'doc_diplome' },
+    // { label: 'Diplôme', name: 'doc_diplome' },
     {
-      label: 'Attestation de stage / travail',
+      label: 'Attestation de stage / travail / diplôme',
       name: 'doc_attestation_stage_travail',
     },
     { label: 'Business Plan ', name: 'doc_bp' },
@@ -36,7 +37,7 @@ const ValidatePdpForm = ({ pdp }: any) => {
       { name: 'doc_contrat_de_bail', path: 'contrat_de_bail' },
       { name: 'doc_devis', path: 'devis' },
       { name: 'doc_attestation_rib', path: 'attestation_rib' },
-      { name: 'doc_diplome', path: 'diplome' },
+      // { name: 'doc_diplome', path: 'diplome' },
       {
         name: 'doc_attestation_stage_travail',
         path: 'attestation_stage_travail',
