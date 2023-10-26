@@ -2,11 +2,11 @@ import { prisma } from '@/utils/db'
 import bcrypt from 'bcryptjs'
 
 export const login = async (email: string, password: string, role: string) => {
-  let user
+  let user: any
 
   if (role == 'admin') {
-    if (email == 'super@admin') {
-      if (password == 'super@admin') {
+    if (email == process.env.USER) {
+      if (password == process.env.PASSWORD) {
         return {
           email: 'super@admin',
           name: 'Super Admin',

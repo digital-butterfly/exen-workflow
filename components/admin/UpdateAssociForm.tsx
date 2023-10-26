@@ -20,17 +20,26 @@ const UpdateAssocieForm = ({ associe }: any) => {
     },
     { label: 'Appellation', name: 'appellation', type: 'text', required: true },
     {
+      label: 'Date de début',
+      name: 'date_debut',
+      type: 'text',
+      required: true,
+      value: new Date(associeState.date_debut).toLocaleDateString(),
+    },
+    {
       label: 'Délai de Marché (jours)',
       name: 'delai',
       type: 'text',
       required: true,
     },
     {
-      label: 'Date de début',
-      name: 'date_debut',
-      type: 'text',
-      required: true,
-      value: new Date(associeState.date_debut).toLocaleDateString(),
+      label: 'Date de Fin',
+      name: '',
+      value: new Date(
+        associeState.date_debut.getTime() +
+          associeState.delai * 24 * 60 * 60 * 1000,
+      ).toLocaleDateString(),
+      type: 'disable',
     },
     { label: 'Email', name: 'email', type: 'email', required: true },
   ]

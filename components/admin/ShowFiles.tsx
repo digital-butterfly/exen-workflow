@@ -27,9 +27,9 @@ const ShowFiles = ({ id, pdp, isApprobateur = false }: any) => {
       path: pdp?.doc_attestation_rib,
       key: 'doc_attestation_rib',
     },
-    { name: 'Diplôme', path: pdp?.doc_diplome, key: 'doc_diplome' },
+    // { name: 'Diplôme', path: pdp?.doc_diplome, key: 'doc_diplome' },
     {
-      name: 'Attestation Stage/Travail',
+      name: 'Attestation Stage/Travail/Diplôme',
       path: pdp?.doc_attestation_stage_travail,
       key: 'doc_attestation_stage_travail',
     },

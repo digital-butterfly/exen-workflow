@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { CSVLink } from 'react-csv'
 
 const ExportPdpCsv = ({ data }: any) => {
-  console.log(data)
   const filteredData = data.map((item: any) => {
     const {
       id,
@@ -56,7 +55,6 @@ const ExportPdpCsv = ({ data }: any) => {
     }
   })
 
-  console.log(filteredData)
   return (
     <CSVLink
       className="mb-2 mr-2 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"

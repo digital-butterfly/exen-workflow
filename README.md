@@ -2,13 +2,6 @@
 
 ## TODO
 
-1. replace "attestation de stage / travail" by "Attestation de stage / travail /
-   diplome"
-
-1. replace form juridique with "chachat al Mokawil"
-
-1. find a way to extract the data to google sheets
-
 1. find a way to store data from google sheets to the database
 
 1. restyle the app
@@ -74,3 +67,10 @@
    - replace user button in associe user
 
 1. Add refuse message to approbateur's page
+
+1. find a way to extract the data to google sheets
+
+1. replace "attestation de stage / travail" by "Attestation de stage / travail /
+   diplome"
+
+   - replace form juridique with "chachat al Mokawil"
