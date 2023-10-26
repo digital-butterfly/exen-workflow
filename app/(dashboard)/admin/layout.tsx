@@ -44,8 +44,8 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
             <Image
               className="mx-auto pt-2"
               src="/imgs/transparent-logo.png"
-              width={297}
-              height={148}
+              width={100}
+              height={100}
               alt="Logo image"
             />
           </Link>

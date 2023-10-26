@@ -23,8 +23,8 @@ const NavBar = ({ token }: any) => {
         <span className="self-center whitespace-nowrap text-2xl font-semibold">
           <Image
             src="/imgs/transparent-logo.png"
-            width={297}
-            height={148}
+            width={100}
+            height={100}
             priority={true}
             alt="logo image"
           />
