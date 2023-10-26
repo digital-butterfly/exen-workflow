@@ -11,7 +11,7 @@ const UpdateApprobateurPage = async ({ params }: any) => {
     <div>
       <div className="mt-10 flex items-center justify-between ">
         <h1 className="text-3xl">
-          Modifier aprobateur ({approbateur.nom} {approbateur.prenom})
+          Modifier approbateur ({approbateur.nom} {approbateur.prenom})
         </h1>
 
         <DeleteApprobateurButton id={approbateur.id} />
