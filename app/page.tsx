@@ -2,7 +2,6 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from './api/auth/[...nextauth]/route'
 import NavBar from '@/components/home/NavBar'
 
-import heroImg from '@/public/imgs/hero.png'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -45,9 +44,9 @@ export default async function Home() {
         <div className="flex w-full items-center justify-center lg:w-1/2">
           <div className="">
             <Image
-              src={heroImg}
-              width="616"
-              height="617"
+              src="/imgs/hero.png"
+              width={1080}
+              height={1080}
               className={'object-cover'}
               alt="Hero Illustration"
               priority={false}

@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import Logo from '@/public/imgs/transparent-logo.png'
 import UserButton from '@/components/UserButton'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/app/api/auth/[...nextauth]/route'
@@ -44,9 +43,9 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           <Link href="/admin">
             <Image
               className="mx-auto pt-2"
-              src={Logo}
-              width={100}
-              height={100}
+              src="/imgs/transparent-logo.png"
+              width={297}
+              height={148}
               alt="Logo image"
             />
           </Link>
