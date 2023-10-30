@@ -2,8 +2,6 @@ import { addFiles } from '@/utils/pdp'
 import { s3Client } from '@/utils/s3Client'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { File } from 'buffer'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
