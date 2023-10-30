@@ -1,12 +1,10 @@
 'use client'
 
+import Link from 'next/link'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const UpdatePdpFileForm = ({ pdp, fileName, fileType }: any) => {
-  console.log(pdp)
-  console.log(fileName)
-  console.log(fileType)
   const [isLoading, setIsLoading] = useState(false)
 
   return (
@@ -23,7 +21,13 @@ const UpdatePdpFileForm = ({ pdp, fileName, fileType }: any) => {
             setIsLoading(false)
             Swal.fire({
               icon: 'success',
-              title: 'PDP validé avec succès',
+              html: `
+              <p>Fichier modifié avec succès</p>
+              <p>Appuyez sur le bouton pour continuer</p>
+              <button class="p-4 bg-green-200 rounded-lg mt-6 text-underline text-green-700" onclick="window.location.href='/associe/pdp/update/${pdp?.id}'">
+                  Aller à la page de mise à jour
+                </button>
+              `,
               showConfirmButton: false,
             })
           })
