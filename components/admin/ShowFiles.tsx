@@ -12,7 +12,7 @@ const ShowFiles = ({ id, pdp, isApprobateur = false }: any) => {
     { name: 'CIN', path: pdp?.doc_cin, key: 'doc_cin' },
     { name: 'CV', path: pdp?.doc_cv, key: 'doc_cv' },
     {
-      name: 'Form Juridique',
+      name: 'Chachat Al Moukawil',
       path: pdp?.doc_forme_juridique,
       key: 'doc_forme_juridique',
     },
@@ -70,7 +70,11 @@ const ShowFiles = ({ id, pdp, isApprobateur = false }: any) => {
       showConfirmButton: false,
       html: (
         <div className="flex justify-center gap-4">
-          <iframe src={`/uploads/${path}`} width="100%" height="500px"></iframe>
+          <iframe
+            src={`https://exen-workflow.fra1.cdn.digitaloceanspaces.com/${path}`}
+            width="100%"
+            height="500px"
+          ></iframe>
         </div>
       ),
     })

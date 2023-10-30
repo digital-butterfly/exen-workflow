@@ -1,6 +1,7 @@
 'use client'
 
 import { inputFileClass } from '@/utils/classes'
+import { redirect } from 'next/navigation'
 import { useState } from 'react'
 import Swal from 'sweetalert2'
 
@@ -33,18 +34,24 @@ const ValidatePdpForm = ({ pdp }: any) => {
           fetch('/api/upload', {
             method: 'POST',
             body: new FormData(e.currentTarget),
-          }).then(() => {
-            setIsLoading(false)
-            Swal.fire({
-              icon: 'success',
-              title: 'PDP validé avec succès',
-              showConfirmButton: false,
-              timer: 1500,
-            })
-            // .then(() => {
-            //   redirect(`/associe/pdp/update/${pdp.id}`)
-            // })
           })
+            .then(() => {
+              setIsLoading(false)
+              Swal.fire({
+                icon: 'success',
+                title: 'PDP validé avec succès clicker ici pour continuer ',
+
+                showConfirmButton: false,
+              })
+            })
+            .catch(() => {
+              Swal.fire({
+                icon: 'error',
+                title: 'Erreur',
+                text: 'Une erreur est survenue',
+                showConfirmButton: false,
+              })
+            })
         }}
       >
         <div className="grid grid-cols-2 gap-6 gap-y-10">

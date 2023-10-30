@@ -2,56 +2,9 @@ import { addFiles } from '@/utils/pdp'
 import { s3Client } from '@/utils/s3Client'
 import { PutObjectCommand } from '@aws-sdk/client-s3'
 import { File } from 'buffer'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation'
 import { NextResponse } from 'next/server'
-
-// export async function POST(req: Request) {
-//   try {
-//     const form = await req.formData()
-//     const pdp = form.get('pdp_name')
-//     const files: any = form.getAll('files')
-
-//     console.log(files)
-
-//     const modifiedFiles = await Promise.all(
-//       files.map(async (file: any) => {
-//         if (!file) return { success: false }
-
-//         const isFile = file instanceof File
-
-//         if (!isFile) return { success: false }
-
-//         const buffer = await file.arrayBuffer()
-
-//         const name = `${pdp}/${Date.now()}-${file.name}`
-
-//         const data = await s3Client.send(
-//           new PutObjectCommand({
-//             Bucket: process.env.SPACES_NAME,
-//             Key: name,
-//             Body: Buffer.from(buffer),
-//             ACL: 'public-read',
-//             ContentType: 'application/pdf',
-//           }),
-//         )
-
-//         return { success: true, name }
-//       }),
-//     )
-
-//     const failedFiles = modifiedFiles.filter((file: any) => !file.success)
-
-//     if (failedFiles.length > 0) {
-//       return NextResponse.json({ message: 'failure' })
-//     }
-
-//     const fileNames = modifiedFiles.map((file: any) => file.name)
-
-//     return NextResponse.json({ message: 'success', fileNames })
-//   } catch (reason) {
-//     console.log(reason)
-//     return NextResponse.json({ message: 'failure' })
-//   }
-// }
 
 export async function POST(req: Request) {
   try {
