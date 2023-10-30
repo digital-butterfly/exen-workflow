@@ -12,7 +12,7 @@ const ValidatePdpPage = async ({ params }: any) => {
   return (
     <div>
       {/* Go back button */}
-      <Link className={ReturnButtonClass} href={`/associe/pdp/${id}`}>
+      <Link className={ReturnButtonClass} href={`/associe/pdp/update/${id}`}>
         <FontAwesomeIcon
           icon={faArrowLeft}
           className="mr-2"

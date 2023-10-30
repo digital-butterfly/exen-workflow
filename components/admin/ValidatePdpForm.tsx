@@ -1,12 +1,11 @@
+'use client'
+
 import { inputFileClass } from '@/utils/classes'
-import { addFiles } from '@/utils/pdp'
-import { writeFile } from 'fs/promises'
-import { redirect } from 'next/navigation'
-import { join } from 'path'
+import { useState } from 'react'
 import Swal from 'sweetalert2'
 
 const ValidatePdpForm = ({ pdp }: any) => {
-  // console.log(pdp)
+  const [isLoading, setIsLoading] = useState(false)
   const inputs = [
     { label: 'CIN', name: 'doc_cin' },
     { label: 'Cv', name: 'doc_cv' },
@@ -24,66 +23,38 @@ const ValidatePdpForm = ({ pdp }: any) => {
     { label: 'Fiche de presence', name: 'doc_fiche_de_presence' },
   ]
 
-  async function action(data: FormData) {
-    'use server'
-
-    const actionPdp = { id: pdp.id, nom: pdp.nom }
-
-    // Define an array of objects that represent the files to be uploaded
-    const files = [
-      { name: 'doc_cin', path: 'cin' },
-      { name: 'doc_cv', path: 'cv' },
-      { name: 'doc_forme_juridique', path: 'forme_juridique' },
-      { name: 'doc_contrat_de_bail', path: 'contrat_de_bail' },
-      { name: 'doc_devis', path: 'devis' },
-      { name: 'doc_attestation_rib', path: 'attestation_rib' },
-      // { name: 'doc_diplome', path: 'diplome' },
-      {
-        name: 'doc_attestation_stage_travail',
-        path: 'attestation_stage_travail',
-      },
-      { name: 'doc_bp', path: 'bp' },
-      { name: 'doc_fiche_de_presence', path: 'fiche_de_presence' },
-    ]
-
-    // Use Promise.all to execute all the arrayBuffer calls in parallel
-    // and create an array of objects that contain the file name, buffer, and path
-    const filesData = await Promise.all(
-      files.map(async file => {
-        const fileData = data.get(file.name) as File | null
-        if (!fileData) return null
-        const buffer = await fileData.arrayBuffer()
-        const name = `${Date.now()}-${pdp.nom}-${fileData.name}`
-          .replace(/[^a-zA-Z0-9.]/g, '-')
-          .replace(/-{2,}/g, '-')
-        const path = join(process.cwd(), 'public', 'uploads', name)
-        return { name, buffer, path }
-      }),
-    )
-
-    // Use a for...of loop to iterate over the filesData array and write each file to disk
-    for (const fileData of filesData) {
-      if (!fileData) continue
-      await writeFile(fileData.path, Buffer.from(fileData.buffer))
-    }
-
-    // Create an object that maps the file path to the file name
-    const filesNames = Object.fromEntries(
-      filesData.map((fileData, i) => [files[i].name, fileData?.name]),
-    )
-
-    // Call the addFiles function to add the file names to the pdp object
-    await addFiles(actionPdp.id, filesNames)
-
-    // Redirect to /admin/pdp/update/[id]
-    redirect(`/associe/pdp/update/${actionPdp.id}`)
-  }
-
   return (
     <div className="mt-6">
-      <form action={action}>
-        {/* add files and change pdp state to valid */}
+      <form
+        method="post"
+        onSubmit={e => {
+          e.preventDefault()
+          setIsLoading(true)
+          fetch('/api/upload', {
+            method: 'POST',
+            body: new FormData(e.currentTarget),
+          }).then(() => {
+            setIsLoading(false)
+            Swal.fire({
+              icon: 'success',
+              title: 'PDP validé avec succès',
+              showConfirmButton: false,
+              timer: 1500,
+            })
+            // .then(() => {
+            //   redirect(`/associe/pdp/update/${pdp.id}`)
+            // })
+          })
+        }}
+      >
         <div className="grid grid-cols-2 gap-6 gap-y-10">
+          <input
+            type="hidden"
+            name="pdp_name"
+            value={`${pdp.id}-${pdp.nom}-${pdp.prenom}`}
+          />
+          <input type="hidden" name="pdp_id" value={pdp.id} />
+
           {inputs.map(e => (
             <div key={e.name} className="flex flex-col">
               <label className="mb-2 font-semibold">{e.label}</label>
@@ -98,9 +69,31 @@ const ValidatePdpForm = ({ pdp }: any) => {
           ))}
         </div>
         <button
-          className="mt-6 rounded-lg bg-blue-500 p-4 text-white hover:bg-blue-600"
+          className="mt-6 flex items-center gap-2 rounded-lg bg-blue-500 p-4 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"
           type="submit"
+          disabled={isLoading}
         >
+          {isLoading && (
+            <div role="status">
+              <svg
+                aria-hidden="true"
+                className="h-6 w-6 animate-spin fill-blue-600 text-white"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
+              </svg>
+              <span className="sr-only">Loading...</span>
+            </div>
+          )}
           Valider
         </button>
       </form>
