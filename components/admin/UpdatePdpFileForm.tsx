@@ -6,6 +6,7 @@ import Swal from 'sweetalert2'
 
 const UpdatePdpFileForm = ({ pdp, fileName, fileType }: any) => {
   const [isLoading, setIsLoading] = useState(false)
+  const [isChanged, setIsChanged] = useState<boolean>(false)
 
   return (
     <form
@@ -24,11 +25,12 @@ const UpdatePdpFileForm = ({ pdp, fileName, fileType }: any) => {
               html: `
               <p>Fichier modifié avec succès</p>
               <p>Appuyez sur le bouton pour continuer</p>
-              <button class="p-4 bg-green-200 rounded-lg mt-6 text-underline text-green-700" onclick="window.location.href='/associe/pdp/update/${pdp?.id}'">
+              <button class="p-4 bg-green-400 rounded-lg mt-6 text-underline text-white" onclick="window.location.href='/associe/pdp/update/${pdp?.id}'">
                   Aller à la page de mise à jour
                 </button>
               `,
               showConfirmButton: false,
+              allowOutsideClick: false,
             })
           })
           .catch(() => {
@@ -50,12 +52,51 @@ const UpdatePdpFileForm = ({ pdp, fileName, fileType }: any) => {
       />
       <input type="hidden" name="file-type" value={fileType} />
 
-      <input
-        id="dropzone-file"
-        type="file"
-        name="file-input"
-        accept="application/pdf"
-      />
+      <div className="flex w-full items-center justify-center">
+        <label
+          htmlFor="dropzone-file"
+          className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-300 bg-gray-50  hover:bg-gray-100 "
+        >
+          <div className="flex flex-col items-center justify-center pb-6 pt-5">
+            <svg
+              className="mb-4 h-8 w-8 text-gray-500 "
+              aria-hidden="true"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 20 16"
+            >
+              <path
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"
+              />
+            </svg>
+            <p className="mb-2 text-sm text-gray-500 ">
+              <span className="font-semibold">
+                Clicker pour ajouter votre fichier
+              </span>
+            </p>
+            {isChanged ? (
+              <p className=" font-semibold text-green-400">
+                Clicker sur valider
+              </p>
+            ) : (
+              <p className="text-xs font-semibold text-red-600">Que du PDF</p>
+            )}
+          </div>
+          <input
+            id="dropzone-file"
+            type="file"
+            name="file-input"
+            accept="application/pdf"
+            className="hidden w-screen p-8"
+            required
+            onChange={() => setIsChanged(true)}
+          />
+        </label>
+      </div>
 
       <button
         className="mt-6 flex items-center gap-2 rounded-lg bg-blue-500 p-4 text-white hover:bg-blue-600 disabled:cursor-not-allowed disabled:opacity-50"

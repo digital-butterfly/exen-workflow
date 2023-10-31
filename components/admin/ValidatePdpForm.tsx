@@ -39,9 +39,15 @@ const ValidatePdpForm = ({ pdp }: any) => {
               setIsLoading(false)
               Swal.fire({
                 icon: 'success',
-                title: 'PDP validé avec succès clicker ici pour continuer ',
-
+                html: `
+              <p>Fichier modifié avec succès</p>
+              <p>Appuyez sur le bouton pour continuer</p>
+              <button class="p-4 bg-green-400 rounded-lg mt-6 text-underline text-white" onclick="window.location.href='/associe/pdp/update/${pdp?.id}'">
+                  Aller à la page de mise à jour
+                </button>
+              `,
                 showConfirmButton: false,
+                allowOutsideClick: false,
               })
             })
             .catch(() => {
