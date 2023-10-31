@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { Pdp } from '@prisma/client'
 import Link from 'next/link'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTable } from '@fortawesome/free-solid-svg-icons'
 import ExportPdpCsv from './admin/ExportPdpCsv'
 
 interface Props {

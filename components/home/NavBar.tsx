@@ -41,7 +41,12 @@ const NavBar = ({ token }: any) => {
                   icon={faUser}
                 />
               </div>
-              <span>Bonjour: {token.user.name}</span>
+              <span>
+                Bonjour:{' '}
+                {token.user.name != 'undefined undefined'
+                  ? token.user.name
+                  : 'Projet'}
+              </span>
             </button>
           ) : (
             <Link href="/auth/signin" className="rounded p-2 hover:bg-sky-200">

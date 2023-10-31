@@ -27,7 +27,6 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
   const [secteurGlobal, setSecteurGlobal] = useState(
     findSecteur(pdp.secteur_projet),
   )
-  console.log(secteurGlobal)
 
   const handleChange = (e: any) => {
     const { name, value } = e.target
@@ -36,23 +35,26 @@ const UpdatePdpForm = ({ pdp, createdBy }: any) => {
 
   async function action(data: FormData) {
     // call a server action to create a todo
-    try {
-      await updatePdpAction(pdpState.id, pdpState)
-    } catch (error: any) {
-      Swal.fire({
-        icon: 'error',
-        title: 'Une erreur est survenue',
-        text: error.message,
+
+    await updatePdpAction(pdpState.id, pdpState)
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Succès',
+          text: 'Pdp Modifié avec succès',
+        })
+
+        setPdpState({ ...pdpState })
       })
-    }
-    // reset the form
-    setPdpState({ ...pdpState })
-    Swal.fire({
-      icon: 'success',
-      title: 'Pdp modifié',
-      showConfirmButton: false,
-      timer: 1500,
-    })
+      .catch((error: any) => {
+        const errorMessage = error.message.split('\n').pop()
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Erreur',
+          text: errorMessage,
+        })
+      })
   }
 
   const handleSubmit = (e: any) => {

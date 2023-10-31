@@ -74,7 +74,9 @@ export async function getAssociePdpsByEmail(email: string) {
     const pdps = await prisma.associe.findUnique({
       where: { email: email },
       select: {
-        PDP: true,
+        PDP: {
+          orderBy: { id: 'asc' },
+        },
       },
     })
     return pdps

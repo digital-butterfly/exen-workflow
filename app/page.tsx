@@ -49,7 +49,6 @@ export default async function Home() {
               height={1080}
               className={'object-cover'}
               alt="Hero Illustration"
-              priority={false}
             />
           </div>
         </div>

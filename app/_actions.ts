@@ -28,10 +28,9 @@ export async function createPdpAction(id: any, pdp: any, role: any) {
 }
 
 export async function updatePdpAction(id: any, pdp: any) {
-  await updatePdp(id, pdp)
-
-  console.log(`/admin/pdp/${id}`)
+  const result = await updatePdp(id, pdp)
   revalidatePath(`/admin/pdp/${id}`)
+  return result
 }
 
 export async function deletePdpAction(id: any, pdp: any) {
