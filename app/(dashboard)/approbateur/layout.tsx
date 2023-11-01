@@ -34,7 +34,7 @@ const ApprobateurLayout = async ({
       <nav className="border-gray-200 bg-white ">
         <div className="flex h-[60px] flex-wrap items-center justify-between border-b-2 px-10">
           <Link href={'/approbateur'}>
-            <Image src={Logo} height={100} width={100} alt="logo" />
+            <Image src={'https://exen-workflow.fra1.cdn.digitaloceanspaces.com/images/transparent-logo.png'} height={100} width={100} alt="logo" />
           </Link>
 
           <div id="navbar-default">
