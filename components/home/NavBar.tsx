@@ -22,7 +22,7 @@ const NavBar = ({ token }: any) => {
       <div className="mx-auto flex max-w-screen-xl flex-wrap items-center justify-between p-4">
         <span className="self-center whitespace-nowrap text-2xl font-semibold">
           <Image
-            src="/imgs/transparent-logo.png"
+            src="https://exen-workflow.fra1.cdn.digitaloceanspaces.com/images/transparent-logo.png"
             width={100}
             height={100}
             priority={true}
