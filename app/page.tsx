@@ -44,7 +44,7 @@ export default async function Home() {
         <div className="flex w-full items-center justify-center lg:w-1/2">
           <div className="">
             <Image
-              src="/imgs/hero.png"
+              src="https://exen-workflow.fra1.cdn.digitaloceanspaces.com/images/hero.jpeg"
               width={1080}
               height={1080}
               className={'object-cover'}
