@@ -43,7 +43,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
           <Link href="/admin">
             <Image
               className="mx-auto pt-2"
-              src="/imgs/transparent-logo.png"
+              src="https://exen-workflow.fra1.cdn.digitaloceanspaces.com/images/transparent-logo.png"
               width={100}
               height={100}
               alt="Logo image"
